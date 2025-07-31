@@ -29,9 +29,9 @@ function BrowseVehicles() {
 
       {/* Loading State */}
       {isPending && (
-        <p className="text-center text-lg font-semibold">
-          Fetching Vehicles . . .
-        </p>
+        <div className="flex justify-center items-center mt-2">
+          <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />
+        </div>
       )}
 
       {/* Error State */}

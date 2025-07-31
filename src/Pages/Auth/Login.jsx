@@ -1,23 +1,23 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import login from '../../services/LoginService'
+import login from "../../services/LoginService";
 import { useState } from "react";
 
 function Login() {
-  const [email,setemail] = useState("");
-  const [password,setpassword] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
   const [error, seterror] = useState();
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handlelogin = async(e)=>{
-  e.preventDefault();
-  try{
-    await login(email, password, navigate);
-  }catch(err){
-    seterror("Invalid email or password");
-  }
-}
+  const handlelogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password, navigate);
+    } catch (err) {
+      seterror("Invalid email or password");
+    }
+  };
 
   return (
     <>
@@ -39,7 +39,7 @@ const handlelogin = async(e)=>{
                   type="email"
                   id="email"
                   value={email}
-                  onChange={(e)=>setemail(e.target.value)}
+                  onChange={(e) => setemail(e.target.value)}
                   className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
                   placeholder=" "
                   required
@@ -57,7 +57,7 @@ const handlelogin = async(e)=>{
                   type="password"
                   id="password"
                   value={password}
-                  onChange={(e)=>setpassword(e.target.value)}
+                  onChange={(e) => setpassword(e.target.value)}
                   className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
                   placeholder=" "
                   required
@@ -155,7 +155,8 @@ const handlelogin = async(e)=>{
 
             <p className="text-center text-gray-600">
               Don't have an account?
-              <Link to="/SignUp"
+              <Link
+                to="/SignUp"
                 className="whitespace-nowrap font-semibold text-gray-900 hover:underline"
               >
                 Sign up

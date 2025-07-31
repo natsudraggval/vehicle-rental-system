@@ -12,19 +12,16 @@ function AllCategory() {
   });
 
   return (
-    <div className="w-full mt-10 mb-5">
-      <button
-        type="submit"
-        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-8 cursor-auto ml-26"
-      >
-        Categories
-      </button>
+    <div className="w-full mb-5 bg-gray-50">
+        <div className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-8">
+              Categories
+        </div>
 
       {/* Loading State */}
       {isPending && (
-        <p className="text-center text-lg font-semibold text-gray-900">
-          Fetching Vehicles . . .
-        </p>
+        <div className="flex justify-center items-center mt-2">
+          <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />
+        </div>
       )}
 
       {/* Error State */}
@@ -32,10 +29,10 @@ function AllCategory() {
 
       {/* Category Grid */}
       {!isPending && !error && (
-        <div className="bg-gray-100">
+        <div className="bg-gray-50">
           <section
             id="Projects"
-            className="px-6 md:px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-y-4 gap-x-0 mt-2 mb-5 ml-24 mr-24"
+            className="px-6 md:px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-y-4 gap-x-0 mt-2 ml-34 mr-34"
           >
             {data.map((item) => (
               <Link

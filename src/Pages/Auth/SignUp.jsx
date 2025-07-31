@@ -26,7 +26,7 @@ function SignUp() {
   }
   return (
     <>
-      <body className="bg-gray-100">
+      <div className="bg-gray-100">
         <div className="flex h-screen w-screen items-center overflow-hidden px-2">
           <div className="relative flex w-96 flex-col space-y-5 rounded-lg border border-gray-300 bg-white px-5 py-10 shadow-xl sm:mx-auto">
             <div className="-z-10 absolute top-4 left-1/2 h-full w-5/6 -translate-x-1/2 rounded-lg bg-cyan-500 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
@@ -102,7 +102,8 @@ function SignUp() {
                   className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
                   placeholder=" "
                   required
-                  minlength="6"
+                  minLength="6"
+                  autoComplete="new-password"
                 />
                 <label
                   htmlFor="password"
@@ -116,12 +117,13 @@ function SignUp() {
                 <input
                   type="password"
                   id="confirm-password"
-                  value={password}
+                  value={confirmPassword}
                   onChange={(e)=>setconfirmPassword(e.target.value)}
                   className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
                   placeholder=" "
                   required
-                  minlength="6"
+                  minLength="6"
+                  autoComplete="new-password"
                 />
                 <label
                   htmlFor="confirm-password"
@@ -143,7 +145,7 @@ function SignUp() {
             </form>
           </div>
         </div>
-      </body>
+      </div>
     </>
   );
 }
