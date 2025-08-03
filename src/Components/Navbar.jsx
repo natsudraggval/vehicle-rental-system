@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,7 +10,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
     localStorage.clear();
     const confirmLogout = window.confirm("Do you really want to logout?");
     if (confirmLogout) {
-      // You can add actual logout logic here (e.g., clear tokens, redirect, etc.)
+      // We can add actual logout logic here (e.g., clear tokens, redirect, etc.)
       localStorage.removeItem("id"); // remove stored token
       localStorage.removeItem("email");
       navigate("/");
