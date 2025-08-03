@@ -1,20 +1,23 @@
-import { toast } from 'react-toastify';
+import axios from 'axios'
 
 const login = async (email, password, navigate) => {
-  await new Promise(resolve => setTimeout(resolve, 500));
+    try{
+        let response = await axios.get("https://api-vehicles.vercel.app/api/users", 
+            {
+          params: { email, password },
+        }
+        )
+        localStorage.setItem('id', response.data.id)
+        localStorage.setItem('email', response.data.email)
 
-  const savedUser = JSON.parse(localStorage.getItem('user'));
-
-  if (!savedUser || savedUser.email !== email || savedUser.password !== password) {
-    toast.error("Invalid email or password");
-    throw new Error("Invalid email or password");
-  }
-
-  localStorage.setItem('email', savedUser.email);
-  localStorage.setItem('user_id', savedUser.user_id);
-
-  toast.success("Login successful!");
-  navigate('/');
-};
+        if(response.data.role === "admin"){
+            navigate('/admin')
+        }else{
+            navigate('/')
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
 
 export default login;

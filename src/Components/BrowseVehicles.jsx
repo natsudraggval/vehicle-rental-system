@@ -65,8 +65,8 @@ function BrowseVehicles() {
                   <p className="text-lg font-semibold text-gray-900 cursor-auto my-3">
                     {item.price}
                   </p>
-                  <div class="ml-auto">
-                    <button class="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-700 transition duration-300">
+                  <div className="ml-auto">
+                    <button className="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-700 transition duration-300">
                       View
                     </button>
                   </div>

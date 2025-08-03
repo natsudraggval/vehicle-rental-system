@@ -8,10 +8,12 @@ import Auth from '../Pages/Auth/Auth';
 import Vehicles from "../Pages/Vehicles";
 import BrowseVehicles from "../Components/BrowseVehicles";
 import AboutUs from "../Pages/Aboutus";
+import { ToastContainer } from "react-toastify";
 
 function MyRoutes() {
   return (
     <>
+    <ToastContainer />
       <Routes>
         <Route element={<App />}>
           <Route path="/" element={<Home />} />
