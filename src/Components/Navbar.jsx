@@ -38,8 +38,6 @@ function Navbar({ onLoginClick, onSignupClick }) {
             Sign up
           </span>
 
-          {/* removed the link because close button not working */}
-          {/* <Link to="/login"> */}
           {/* <button
             type="button"
             onClick={onLoginClick}
@@ -47,6 +45,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
           >
             Login
           </button> */}
+          
           {!email ? (
             <button
               onClick={onLoginClick}
@@ -63,7 +62,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
               <span className="hidden md:inline ml-2">Logout</span>
             </button>
           )}
-          {/* </Link> */}
+          
 
           <button
             data-collapse-toggle="mobile-menu-2"
