@@ -47,6 +47,7 @@ function Login({ onClose = () => {} }) {
     }
   };
 
+  
   // Close modal when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {

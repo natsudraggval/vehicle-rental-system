@@ -19,13 +19,61 @@ function BrowseVehicles() {
   };
 
   return (
-    <div className="w-full mt-10 mb-5">
+    <div className="w-full mt-8 mb-8">
       <button
         type="submit"
-        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-8 cursor-auto ml-26"
+        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-2 cursor-auto ml-26"
       >
         Browse Vehicles
       </button>
+
+      <aside className="w-lgrounded-lg rounded-md border-2 border-cyan-500 p-2 max-w-xl mx-auto shadow-lg bg-gradient-to-r from-white to-cyan-50">
+        <h2 className="font-os text-lg font-bold text-gray-900 text-center">
+          Fleets
+        </h2>
+        <ul className="flex justify-center flex-wrap gap-5 mt-2 mb-3">
+          <li>
+            <a
+              className="px-4 py-1 rounded-md border border-cyan-800 bg-cyan-500 text-white font-medium shadow-sm hover:scale-105 hover:bg-cyan-600 transition-all duration-200"
+              href="category/all"
+            >
+              All
+            </a>
+          </li>
+          <li>
+            <a
+              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
+              href="category/react-js"
+            >
+              Bike
+            </a>
+          </li>
+          <li>
+            <a
+              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
+              href="category/redux"
+            >
+              Scooter
+            </a>
+          </li>
+          <li>
+            <a
+              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
+              href="category/ui-design"
+            >
+              Car
+            </a>
+          </li>
+          <li>
+            <a
+              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
+              href="category/user-experience"
+            >
+              Jeep
+            </a>
+          </li>
+        </ul>
+      </aside>
 
       {/* Loading State */}
       {isPending && (
@@ -41,7 +89,7 @@ function BrowseVehicles() {
       {!isPending && !error && (
         <section
           id="Projects"
-          className="px-6 md:px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-y-16 gap-x-10 mt-2 mb-5"
+          className="px-6 md:px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-y-16 gap-x-10 mt-6 mb-5"
         >
           {data.map((item) => (
             <Link
