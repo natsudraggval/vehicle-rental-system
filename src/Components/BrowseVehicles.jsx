@@ -1,13 +1,33 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
+const categories = ["All", "Bike", "Scooter", "Car", "Jeep"];
+
 function BrowseVehicles() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const { isPending, error, data } = useQuery({
     queryKey: ["browsevehicles"],
     queryFn: () =>
       fetch("https://api-vehicles.vercel.app/api/vehicles").then((res) =>
         res.json()
       ),
+  });
+
+  const navigate = useNavigate();
+
+  // Filter based on category
+  const filteredData = data?.filter((dest) => {
+    if (selectedCategory === "All") return true;
+
+    // Support array or string category
+    if (Array.isArray(dest.category)) {
+      return dest.category.some(
+        (cat) => cat.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+
+    return dest.category?.toLowerCase() === selectedCategory.toLowerCase();
   });
 
   const truncateDescription = (desc, limit = 25) => {
@@ -27,51 +47,28 @@ function BrowseVehicles() {
         Browse Vehicles
       </button>
 
-      <aside className="w-lgrounded-lg rounded-md border-2 border-cyan-500 p-2 max-w-xl mx-auto shadow-lg bg-gradient-to-r from-white to-cyan-50">
+      <aside className="max-w-lg rounded-md border-2 border-cyan-500 p-2 mx-auto shadow-lg bg-gradient-to-r from-white to-cyan-50">
         <h2 className="font-os text-lg font-bold text-gray-900 text-center">
           Fleets
         </h2>
         <ul className="flex justify-center flex-wrap gap-5 mt-2 mb-3">
-          <li>
-            <a
-              className="px-4 py-1 rounded-md border border-cyan-800 bg-cyan-500 text-white font-medium shadow-sm hover:scale-105 hover:bg-cyan-600 transition-all duration-200"
-              href="category/all"
-            >
-              All
-            </a>
-          </li>
-          <li>
-            <a
-              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
-              href="category/react-js"
-            >
-              Bike
-            </a>
-          </li>
-          <li>
-            <a
-              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
-              href="category/redux"
-            >
-              Scooter
-            </a>
-          </li>
-          <li>
-            <a
-              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
-              href="category/ui-design"
-            >
-              Car
-            </a>
-          </li>
-          <li>
-            <a
-              className="px-4 py-1 rounded-md border border-cyan-800 bg-white text-cyan-800 font-medium shadow-sm hover:scale-105 hover:bg-cyan-100 transition-all duration-200"
-              href="category/user-experience"
-            >
-              Jeep
-            </a>
-          </li>
+          {categories.map((category) => (
+            <li key={category}>
+              <button
+                onClick={() => {
+                  console.log("Clicked category:", category);
+                  setSelectedCategory(category);
+                }}
+                className={`px-4 py-1 rounded-md border border-cyan-800 font-medium shadow-sm transition-all duration-200 hover:scale-105 ${
+                  selectedCategory === category
+                    ? "bg-cyan-500 text-white hover:bg-cyan-600"
+                    : "bg-white text-cyan-800 hover:bg-cyan-100"
+                }`}
+              >
+                {category}
+              </button>
+            </li>
+          ))}
         </ul>
       </aside>
 
@@ -91,7 +88,7 @@ function BrowseVehicles() {
           id="Projects"
           className="px-6 md:px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center gap-y-16 gap-x-10 mt-6 mb-5"
         >
-          {data.map((item) => (
+          {filteredData?.map((item) => (
             <Link
               to={`/product/${item.id}`}
               key={item.id}
