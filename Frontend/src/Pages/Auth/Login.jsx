@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import login from "../../services/LoginService";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
@@ -14,54 +13,46 @@ function Login({ onClose = () => {} }) {
 
   const [loading, setLoading] = useState(false);
 
-
+  // ---------------- Local Login ----------------
   const handlelogin = async (e) => {
     e.preventDefault();
     try {
-      // call your local login endpoint, for example:
-      const response = await axios.get(
-        "https://api-vehicles.vercel.app/api/users",
-        {
-          params: { email, password },
-        }
+      const response = await axios.post(
+        "http://localhost:3000/api/users/login",
+        { email, password }
       );
 
-      const users = response.data;
+      const { _id, fullname, email: userEmail, token, role } = response.data;
 
-      // Find the user with matching email and password
-      const matchedUser = users.find(
-        (user) => user.email === email && user.password === password
-      );
+      // Save user info in localStorage
+      localStorage.setItem("id", _id);
+      localStorage.setItem("fullname", fullname);
+      localStorage.setItem("email", userEmail);
+      localStorage.setItem("role", role);
+      localStorage.setItem("token", token);
 
-      if (matchedUser) {
-        // Store matched user's ID and email in localStorage
-        localStorage.setItem("id", matchedUser.id); // use correct ID field
-        localStorage.setItem("email", matchedUser.email);
+      toast.success("Login successful");
+      console.log("Local login response:", response.data);
 
-        toast.success("Login successful");
-        console.log("Local login response:", matchedUser);
-
-        onClose();
-        navigate("BrowseVehicles");
-      } else {
-        toast.error("Invalid email or password");
-      }
+      onClose();
+      navigate("/BrowseVehicles");
     } catch (err) {
-      toast.error("Login failed: " + err.message);
+      console.error(err);
+      toast.error(
+        err.response?.data?.message || "Login failed: " + err.message
+      );
     }
   };
 
-  //Google oAuth Login
+  // ---------------- Google oAuth Login ----------------
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     try {
       setLoading(true);
       const idToken = credentialResponse.credential;
 
       const response = await axios.post(
-        `https://localhost:3000/api/users/google-login`,
-        {
-          id_token: idToken,
-        }
+        "http://localhost:3000/api/users/google-login",
+        { id_token: idToken }
       );
 
       const { email, fullname, token, role, _id } = response.data;
@@ -72,14 +63,14 @@ function Login({ onClose = () => {} }) {
       localStorage.setItem("role", role);
       localStorage.setItem("id", _id);
 
-      toast.success("login successful!");
+      toast.success("Login successful!");
       onClose();
-      resetForm();
+      // resetForm();
 
       if (role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/");
+        navigate("/BrowseVehicles");
       }
     } catch (err) {
       console.error(err);
@@ -93,7 +84,7 @@ function Login({ onClose = () => {} }) {
     setError("Google login failed. Please try again.");
   };
 
-  // Close modal when clicking outside
+  // ---------------- Modal Behavior ----------------
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -106,7 +97,6 @@ function Login({ onClose = () => {} }) {
     };
   }, [onClose]);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -134,6 +124,7 @@ function Login({ onClose = () => {} }) {
           <p className="text-gray-500 mb-4">Login to access your account</p>
         </div>
 
+        {/* Local Login Form */}
         <form className="space-y-5" onSubmit={handlelogin}>
           <div className="relative mt-2 w-full">
             <input
@@ -145,6 +136,7 @@ function Login({ onClose = () => {} }) {
               className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
               placeholder=" "
               required
+              autoComplete="email"
             />
             <label
               htmlFor="email"
@@ -165,6 +157,7 @@ function Login({ onClose = () => {} }) {
               placeholder=" "
               required
               minLength="6"
+              autoComplete="current-password"
             />
             <label
               htmlFor="password"
@@ -199,11 +192,11 @@ function Login({ onClose = () => {} }) {
           <div className="h-px bg-gray-300 w-36"></div>
         </div>
 
+        {/* Google Login */}
         <div className="flex justify-center mt-4">
           <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
             onError={handleGoogleLoginError}
-            useOneTap
           />
         </div>
 

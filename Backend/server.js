@@ -1,32 +1,35 @@
-import dotenv from 'dotenv'
-import express from 'express'
-import cors from 'cors';
-import Connect from './config/db.js';
-import userRoute from "./Routes/userRoute.js"
-
+import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import Connect from "./config/db.js";
+import userRoute from "./Routes/userRoute.js";
 
 dotenv.config();
-const app = express()
-const port = process.env.PORT || 5000
+const app = express();
+const port = process.env.PORT || 5000;
 
 Connect();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-let allowedOrigins = ["http://localhost:5173"];
-app.use(cors({
+// Allow your Vite dev server to call the API
+const allowedOrigins = ["http://localhost:5173"];
+app.use(
+  cors({
     origin: allowedOrigins,
-    methods: "GET, POST, PUT, DELETE",
-    allowedHeaders: "Content-Type, Authorization"
-}));
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
+  })
+);
 
 app.use("/api/users", userRoute);
 
-app.get('/',(req,res) => {
-    res.send("Hello! The server is working. ")
-})
+app.get("/", (req, res) => {
+  res.send("Hello! The server is working.");
+});
 
-app.listen(port,() => {
-    console.log(`listening on Port ${port}`);
-})
+app.listen(port, () => {
+  console.log(`listening on Port ${port}`);
+});

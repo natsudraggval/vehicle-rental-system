@@ -13,11 +13,15 @@ const userSchema = new mongoose.Schema(
     },
     phonenumber: {
       type: Number,
-      required: true,
+      required: function () {
+        return !this.is_google_account;
+      },
     },
     password: {
       type: String,
-      required: true,
+      required: function () {
+        return !this.is_google_account;
+      },
     },
     google_id: {
       type: String,
@@ -28,7 +32,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    // to check whether the user is admin or not
     role: {
       type: String,
       required: true,
