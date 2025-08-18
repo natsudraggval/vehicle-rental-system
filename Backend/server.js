@@ -1,26 +1,32 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
+import dotenv from 'dotenv'
+import express from 'express'
+import cors from 'cors';
+import Connect from './config/db.js';
+import userRoute from "./Routes/userRoute.js"
+
 
 dotenv.config();
-const app = express();
+const app = express()
+const port = process.env.PORT || 5000
 
-// Middleware
+Connect();
+
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({extended: true}));
 
-// Simple test route
-app.get("/", (req, res) => {
-  res.send("Bike/Car Rental API is running...");
-});
+let allowedOrigins = ["http://localhost:5173"];
+app.use(cors({
+    origin: allowedOrigins,
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Content-Type, Authorization"
+}));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected ✅");
-    app.listen(process.env.PORT || 5000, () =>
-      console.log(`Server running on port ${process.env.PORT || 5000}`)
-    );
-  })
-  .catch((err) => console.log(err));
+app.use("/api/users", userRoute);
+
+app.get('/',(req,res) => {
+    res.send("Hello! The server is working. ")
+})
+
+app.listen(port,() => {
+    console.log(`listening on Port ${port}`);
+})

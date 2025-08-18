@@ -3,13 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import login from "../../services/LoginService";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login({ onClose = () => {} }) {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
   const navigate = useNavigate();
   const modalRef = useRef(null);
+
+  const [loading, setLoading] = useState(false);
+
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -47,7 +51,48 @@ function Login({ onClose = () => {} }) {
     }
   };
 
-  
+  //Google oAuth Login
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    try {
+      setLoading(true);
+      const idToken = credentialResponse.credential;
+
+      const response = await axios.post(
+        `https://localhost:3000/api/users/google-login`,
+        {
+          id_token: idToken,
+        }
+      );
+
+      const { email, fullname, token, role, _id } = response.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("fullname", fullname);
+      localStorage.setItem("email", email);
+      localStorage.setItem("role", role);
+      localStorage.setItem("id", _id);
+
+      toast.success("login successful!");
+      onClose();
+      resetForm();
+
+      if (role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Google login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLoginError = () => {
+    setError("Google login failed. Please try again.");
+  };
+
   // Close modal when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -78,6 +123,7 @@ function Login({ onClose = () => {} }) {
         <button
           className="absolute right-3 top-3 text-gray-500 hover:text-gray-800 text-3xl font-extrabold focus:outline-none"
           onClick={onClose}
+          disabled={loading}
         >
           &times;
         </button>
@@ -94,6 +140,7 @@ function Login({ onClose = () => {} }) {
               type="email"
               id="email"
               value={email}
+              disabled={loading}
               onChange={(e) => setemail(e.target.value)}
               className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
               placeholder=" "
@@ -112,6 +159,7 @@ function Login({ onClose = () => {} }) {
               type="password"
               id="password"
               value={password}
+              disabled={loading}
               onChange={(e) => setpassword(e.target.value)}
               className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
               placeholder=" "
@@ -131,6 +179,7 @@ function Login({ onClose = () => {} }) {
           <div className="flex w-full items-center justify-between">
             <button
               type="submit"
+              disabled={loading}
               className="shrink-0 inline-block w-36 rounded-lg bg-cyan-500 hover:bg-cyan-700 py-3 font-bold text-white"
             >
               Login
@@ -150,36 +199,12 @@ function Login({ onClose = () => {} }) {
           <div className="h-px bg-gray-300 w-36"></div>
         </div>
 
-        <div className="flex items-center justify-center bg-white">
-          <button className="w-84 flex items-center justify-center bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-            <svg
-              className="h-6 w-8 mr-2"
-              width="800px"
-              height="800px"
-              viewBox="-0.5 0 48 48"
-              version="1.1"
-            >
-              <g fill="none" fillRule="evenodd">
-                <path
-                  fill="#FBBC05"
-                  d="M9.83 24c0-1.52.25-2.98.7-4.36L2.62 13.6C1.08 16.73.21 20.26.21 24c0 3.74.87 7.26 2.41 10.39l7.9-6.05c-.45-1.36-.7-2.82-.7-4.34z"
-                />
-                <path
-                  fill="#EB4335"
-                  d="M23.71 10.13c3.31 0 6.3 1.17 8.65 3.1l6.84-6.83c-4.17-3.63-9.51-5.9-15.5-5.9-9.29 0-17.27 5.31-21.09 13.07l7.91 6.04c1.82-5.53 6.99-9.42 13.19-9.42z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M23.71 37.87c-6.16 0-11.36-3.99-13.18-9.51L2.62 34.4c3.82 7.76 11.8 13.07 21.09 13.07 5.73 0 11.2-2.04 15.31-5.85l-7.5-5.8c-2.11 1.34-4.77 2.02-7.71 2.02z"
-                />
-                <path
-                  fill="#4285F4"
-                  d="M46.15 24c0-1.39-.21-2.88-.54-4.27H23.71v9.07h12.6c-.63 3.09-2.34 5.46-4.79 6.99l7.51 5.8C43.34 37.61 46.15 31.65 46.15 24z"
-                />
-              </g>
-            </svg>
-            <span>Continue with Google</span>
-          </button>
+        <div className="flex justify-center mt-4">
+          <GoogleLogin
+            onSuccess={handleGoogleLoginSuccess}
+            onError={handleGoogleLoginError}
+            useOneTap
+          />
         </div>
 
         <p className="text-center text-gray-600">
