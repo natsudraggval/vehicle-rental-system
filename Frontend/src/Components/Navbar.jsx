@@ -7,16 +7,14 @@ function Navbar({ onLoginClick, onSignupClick }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear();
     const confirmLogout = window.confirm("Do you really want to logout?");
     if (confirmLogout) {
-      // We can add actual logout logic here (e.g., clear tokens, redirect, etc.)
-      localStorage.removeItem("id"); // remove stored token
-      localStorage.removeItem("email");
-      navigate("/");
+      localStorage.clear(); // clear all tokens
+      navigate("/", { replace: true }); // replace history entry
       toast.success("Successfully logged out!");
     }
   };
+
   return (
     <nav className="bg-white border-gray-200 py-2.5 shadow-md">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
@@ -45,7 +43,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
           >
             Login
           </button> */}
-          
+
           {!email ? (
             <button
               onClick={onLoginClick}
@@ -62,7 +60,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
               <span className="hidden md:inline ml-2">Logout</span>
             </button>
           )}
-          
+
 
           <button
             data-collapse-toggle="mobile-menu-2"
