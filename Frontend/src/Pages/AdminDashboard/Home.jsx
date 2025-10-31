@@ -72,10 +72,10 @@ function Home() {
                 </div>
             </div>
 
-            {/* LIST OF VEHICLES */}
+            {/* MOST RENTED VEHICLES */}
             <div className="bg-white shadow-lg p-6 rounded-lg hover:shadow-lg transition">
                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-2xl font-bold text-gray-800">List of Vehicles</h3>
+                    <h3 className="text-2xl font-bold text-gray-800">Most Rented Vehicles</h3>
                 </div>
                 <ul className="divide-y divide-gray-300">
                     <li className="py-4 flex justify-between items-center">

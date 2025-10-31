@@ -38,7 +38,7 @@ function MyRoutes() {
           <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
         </Route>
 
-        {/* Redirect any unknown route */}
+        {/* Redirects any unknown route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BsSpeedometer, BsReceipt, BsClockHistory, BsFileEarmarkBarGraph, BsBoxArrowLeft, BsCarFrontFill } from "react-icons/bs";
 import logo from '../../assets/image/dash.png';
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 
 
 function Sidebar() {
