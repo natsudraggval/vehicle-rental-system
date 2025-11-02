@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
 
-function Login({ onClose = () => {} }) {
+function Login({ onClose = () => { } }) {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState();
