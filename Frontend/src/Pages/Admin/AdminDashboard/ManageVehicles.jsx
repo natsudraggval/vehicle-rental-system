@@ -147,6 +147,8 @@ function ManageVehicles() {
                 </form>
             </div>
 
+
+
             {/* Manage Vehicles Table  */}
             <div
                 className="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition mt-6"
