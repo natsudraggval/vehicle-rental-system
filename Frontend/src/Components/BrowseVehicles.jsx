@@ -42,35 +42,29 @@ function BrowseVehicles() {
     <div className="w-full mt-8 mb-8">
       <button
         type="submit"
-        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-2 cursor-auto ml-26"
+        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-6 cursor-auto ml-26 font-os text-xl"
       >
-        Browse Vehicles
+        Browse Vehicles By Category
       </button>
 
-      <aside className="max-w-lg rounded-md border-2 border-cyan-500 p-2 mx-auto shadow-lg bg-gradient-to-r from-white to-cyan-50">
-        <h2 className="font-os text-lg font-bold text-gray-900 text-center">
-          Fleets
-        </h2>
-        <ul className="flex justify-center flex-wrap gap-5 mt-2 mb-3">
-          {categories.map((category) => (
-            <li key={category}>
-              <button
-                onClick={() => {
-                  console.log("Clicked category:", category);
-                  setSelectedCategory(category);
-                }}
-                className={`px-4 py-1 rounded-md border border-cyan-800 font-medium shadow-sm transition-all duration-200 hover:scale-105 ${
-                  selectedCategory === category
-                    ? "bg-cyan-500 text-white hover:bg-cyan-600"
-                    : "bg-white text-cyan-800 hover:bg-cyan-100"
+      <ul className="flex justify-center items-center gap-4 flex-wrap">
+        {categories.map((category) => (
+          <li key={category}>
+            <button
+              onClick={() => {
+                console.log("Clicked category:", category);
+                setSelectedCategory(category);
+              }}
+              className={`px-6 py-2 rounded-full font-medium shadow-sm transition-all duration-200 ${selectedCategory === category
+                  ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                  : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white"
                 }`}
-              >
-                {category}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </aside>
+            >
+              {category}
+            </button>
+          </li>
+        ))}
+      </ul>
 
       {/* Loading State */}
       {isPending && (

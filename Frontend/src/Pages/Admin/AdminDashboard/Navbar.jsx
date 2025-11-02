@@ -1,6 +1,6 @@
 import React from 'react'
 import { HiOutlineMenu, HiOutlineSearch, HiBell } from "react-icons/hi";
-import profileImg from '../../assets/image/profile.jpg';
+import profileImg from '../../../assets/image/profile.jpg';
 
 function Navbar() {
     return (

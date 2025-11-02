@@ -29,12 +29,14 @@ function Navbar({ onLoginClick, onSignupClick }) {
           <div className="hidden mt-2 mr-4 sm:inline-block">
             <span></span>
           </div>
-          <span
-            onClick={onSignupClick}
-            className="ml-4 text-gray-700 hover:text-cyan-500 cursor-pointer"
-          >
-            Sign up
-          </span>
+          {!email && (
+            <span
+              onClick={onSignupClick}
+              className="ml-4 text-gray-700 hover:text-cyan-500 cursor-pointer"
+            >
+              Sign up
+            </span>
+          )}
 
           {/* <button
             type="button"
