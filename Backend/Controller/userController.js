@@ -27,7 +27,8 @@ const LoginController = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    await UserTokenModel.create({ userId: user._id, token });
+    // save under the "jwt" field (schema expects jwt)
+    await UserTokenModel.create({ userId: user._1d ?? user._id, jwt: token });
 
     res.status(200).json({
       _id: user._id,
@@ -178,8 +179,12 @@ const UpdatePasswordController = async (req, res) => {
 
 const UpdateProfileController = async (req, res) => {
   try {
-    const { token } = req.headers;
-    const splitToken = token.split(" ")[1];
+    // UpdateProfileController / LogoutController — use Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Authorization token missing or invalid" });
+    }
+    const splitToken = authHeader.split(" ")[1];
     const decoded = jsonwebtoken.verify(splitToken, process.env.SECURE);
     req.user = decoded;
 
@@ -207,8 +212,12 @@ const UpdateProfileController = async (req, res) => {
 
 const LogoutController = async (req, res) => {
   try {
-    const { token } = req.headers;
-    const splitToken = token.split(" ")[1];
+    // UpdateProfileController / LogoutController — use Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Authorization token missing or invalid" });
+    }
+    const splitToken = authHeader.split(" ")[1];
     const decoded = jsonwebtoken.verify(splitToken, process.env.SECURE);
     req.user = decoded;
 

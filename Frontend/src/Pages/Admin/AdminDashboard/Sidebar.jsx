@@ -1,10 +1,21 @@
 import React from 'react'
 import { BsSpeedometer, BsReceipt, BsClockHistory, BsFileEarmarkBarGraph, BsBoxArrowLeft, BsCarFrontFill } from "react-icons/bs";
 import logo from '../../../assets/image/dash.png';
-import { NavLink} from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Sidebar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Do you really want to logout?");
+        if (confirmLogout) {
+            localStorage.clear(); // clear all tokens
+            navigate("/", { replace: true }); // replace history entry
+            toast.success("Successfully logged out!");
+        }
+    };
+
     return (
         <aside className="bg-gray-900 w-64 min-h-screen p-6 shadow-xl fixed top-0 left-0 flex-shrink-0">
             {/* Logo */}
@@ -73,7 +84,7 @@ function Sidebar() {
                 </li>
                 <li>
                     <a
-                        href="#"
+                        href="#" onClick={handleLogout}
                         className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
                     >
                         <BsBoxArrowLeft className="text-xl" />

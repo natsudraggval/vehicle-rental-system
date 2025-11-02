@@ -14,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import DashboardLayout from "../Pages/Admin/AdminDashboard/DashboardLayout";
 import DashboardHome from "../Pages/Admin/AdminDashboard/Home";
 import ManageVehicles from "../Pages/Admin/AdminDashboard/ManageVehicles";
+import AdminLogin from "../Pages/Admin/Auth/AdminLogin";
+import PrivateRoute from "./ProtectedRoute";
 
 function MyRoutes() {
   return (
@@ -32,12 +34,18 @@ function MyRoutes() {
           </Route>
         </Route>
 
-        {/* Nested Admin Dashboard routes */}
+
+        {/* Nested Admin and its Dashboard routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} /> {/* /admin */}
           <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
           <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
         </Route>
+        </Route>
+        
+
 
         {/* Redirects any unknown route */}
         <Route path="*" element={<Navigate to="/" />} />
