@@ -9,10 +9,11 @@ import BrowseVehicles from "../Components/BrowseVehicles";
 import AboutUs from "../Pages/Aboutus";
 import { ToastContainer } from "react-toastify";
 
+
 // Admin Dashboard imports
-import DashboardLayout from "../Pages/AdminDashboard/DashboardLayout";
-import DashboardHome from "../Pages/AdminDashboard/Home";
-import ManageVehicles from "../Pages/AdminDashboard/ManageVehicles";
+import DashboardLayout from "../Pages/Admin/AdminDashboard/DashboardLayout";
+import DashboardHome from "../Pages/Admin/AdminDashboard/Home";
+import ManageVehicles from "../Pages/Admin/AdminDashboard/ManageVehicles";
 
 function MyRoutes() {
   return (
