@@ -36,7 +36,7 @@ const AboutUs = () => {
             />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-cyan-500 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Who We Are
             </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
@@ -111,7 +111,7 @@ const AboutUs = () => {
         {/* Contact */}
         <section className="text-center space-y-6">
           <div>
-            <h3 className="text-3xl font-bold text-gray-900">Get in Touch</h3>
+            <h3 className="text-4xl font-os text-gray-900">Get in Touch</h3>
             <p className="text-gray-600">
               📧 Email us at{" "}
               <a

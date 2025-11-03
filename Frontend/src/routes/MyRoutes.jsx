@@ -9,7 +9,6 @@ import BrowseVehicles from "../Components/BrowseVehicles";
 import AboutUs from "../Pages/Aboutus";
 import { ToastContainer } from "react-toastify";
 
-
 // Admin Dashboard imports
 import DashboardLayout from "../Pages/Admin/AdminDashboard/DashboardLayout";
 import DashboardHome from "../Pages/Admin/AdminDashboard/Home";
@@ -28,24 +27,24 @@ function MyRoutes() {
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="browsevehicles" element={<BrowseVehicles />} />
 
+          {/* Add admin/login here as a child route so App is mounted and can show the modal */}
+          <Route path="admin/login" element={<></>} />
+
           <Route element={<Auth />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
         </Route>
 
-
         {/* Nested Admin and its Dashboard routes */}
-        <Route path="/admin/login" element={<AdminLogin />} />
+        {/* remove standalone /admin/login route here (it's now a child) */}
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-        <Route path="/admin" element={<DashboardLayout />}>
-          <Route index element={<DashboardHome />} /> {/* /admin */}
-          <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
-          <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
+          <Route path="/admin" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} /> {/* /admin */}
+            <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
+            <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
+          </Route>
         </Route>
-        </Route>
-        
-
 
         {/* Redirects any unknown route */}
         <Route path="*" element={<Navigate to="/" />} />
