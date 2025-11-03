@@ -1,40 +1,45 @@
 import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schema(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        },
-        price: {
-            type: Number,
-            required: true,
-        },
-        stock: {
-            type: Number,
-            required: true,
-        },
-        isFeatured: {
-            type: Boolean,
-            default: false,
-        },
-        category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category",
-            required: true,
-        },
-        productImage: {
-            type: String,
-            required: false,
-        },
+const vehicleSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Vehicle name is required"],
+      trim: true,
     },
-    { timestamps: true }
+    vehicleNumber: {
+      type: String,
+      required: [true, "Vehicle number is required"],
+      unique: true,
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: [true, "Price per day is required"],
+      min: [0, "Price cannot be negative"],
+    },
+    category: {
+      type: String,
+      required: [true, "Category is required"],
+      enum: ["Car", "Bike", "Scooter"],
+    },
+    imageUrl: {
+      type: String,
+      required: [true, "Image URL is required"],
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+    },
+    isAvailable: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  { timestamps: true }
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Vehicle = mongoose.model("Vehicle", vehicleSchema);
 
-export default Product;
+export default Vehicle;

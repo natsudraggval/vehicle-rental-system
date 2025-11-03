@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import Connect from "./config/db.js";
 import userRoute from "./Routes/userRoute.js";
+import vehicleRoute from "./Routes/vehicleRoute.js";
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use(
 );
 
 app.use("/api/users", userRoute);
+app.use("/api/vehicles", vehicleRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello! The server is working.");
