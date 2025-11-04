@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-const categories = ["All", "Bike", "Scooter", "Car", "Jeep"];
+const categories = ["All", "Bike", "Scooter", "Car"];
 
 function BrowseVehicles() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { isPending, error, data } = useQuery({
     queryKey: ["browsevehicles"],
     queryFn: () =>
-      fetch("https://api-vehicles.vercel.app/api/vehicles").then((res) =>
+      fetch("http://localhost:3000/api/vehicles/get-vehicles").then((res) =>
         res.json()
       ),
   });
@@ -56,8 +56,8 @@ function BrowseVehicles() {
                 setSelectedCategory(category);
               }}
               className={`px-6 py-2 rounded-full font-medium shadow-sm transition-all duration-200 ${selectedCategory === category
-                  ? "bg-cyan-600 text-white hover:bg-cyan-700"
-                  : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white"
+                ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white"
                 }`}
             >
               {category}
@@ -89,8 +89,8 @@ function BrowseVehicles() {
               className="w-64 bg-white border border-gray-200 shadow-lg rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
             >
               <img
-                src={item.image}
-                alt={item.title}
+                src={item.imageUrl}
+                alt={item.name}
                 className="h-64 w-64 object-cover rounded-t-xl"
               />
               <div className="px-4 py-3 w-64">
@@ -98,7 +98,7 @@ function BrowseVehicles() {
                   {item.category}
                 </span>
                 <p className="text-lg font-bold text-gray-900 truncate block capitalize">
-                  {item.title}
+                  {item.name}
                 </p>
                 <div className="flex items-center">
                   <p className="text-lg font-semibold text-gray-900 cursor-auto my-3">
