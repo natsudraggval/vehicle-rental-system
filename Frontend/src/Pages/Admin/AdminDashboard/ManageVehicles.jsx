@@ -239,12 +239,23 @@ function ManageVehicles() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-6 rounded-lg font-medium shadow transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-6 rounded-lg font-medium shadow transition flex items-center justify-center min-w-[150px] ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            {loading ? 'Saving...' : editMode ? 'Update Vehicle' : 'Save Vehicle'}
+                            {loading ? (<img src="/wspinner.svg" alt="Loading..." className="w-6 h-6" />) : editMode ? 'Update Vehicle' : 'Save Vehicle'}
                         </button>
                         <button
-                            type="reset"
+                            type="button" onClick={() => {
+                                setFormData({
+                                    name: '',
+                                    vehicleNumber: '',
+                                    price: '',
+                                    category: '',
+                                    imageUrl: '',
+                                    description: ''
+                                });
+                                setEditMode(false);
+                                setEditId(null);
+                            }}
                             className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition"
                         >
                             Clear

@@ -117,12 +117,21 @@ function AdminLogin() {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="inline-block w-full rounded-lg bg-cyan-500 hover:bg-cyan-700 py-3 font-bold text-white"
+            className="inline-flex w-full items-center justify-center rounded-lg bg-cyan-500 hover:bg-cyan-700 py-3 font-bold text-white"
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? (
+              <img
+                src="/wspinner.svg"
+                alt="Loading..."
+                className="w-6 h-6"
+              />
+            ) : (
+              'Login'
+            )}
           </button>
         </div>
+
       </form>
     </div>
   );
