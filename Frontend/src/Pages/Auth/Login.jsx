@@ -173,10 +173,15 @@ function Login({ onClose = () => { } }) {
             <button
               type="submit"
               disabled={loading}
-              className="shrink-0 inline-block w-36 rounded-lg bg-cyan-500 hover:bg-cyan-700 py-3 font-bold text-white"
+              className={`shrink-0 inline-flex w-36 rounded-lg bg-cyan-500 hover:bg-cyan-700 py-3 font-bold text-white items-center justify-center transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              Login
+              {loading ? (
+                <img src="/wspinner.svg" alt="Loading..." className="w-6 h-6" />
+              ) : (
+                'Login'
+              )}
             </button>
+
             <a
               href="#"
               className="text-sm font-medium text-gray-600 hover:underline"
