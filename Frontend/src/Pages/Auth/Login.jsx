@@ -16,6 +16,7 @@ function Login({ onClose = () => { } }) {
   // ---------------- Local Login ----------------
   const handlelogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/users/login",
@@ -41,6 +42,8 @@ function Login({ onClose = () => { } }) {
       toast.error(
         err.response?.data?.message || "Login failed: " + err.message
       );
+    } finally {
+      setLoading(false);
     }
   };
 
