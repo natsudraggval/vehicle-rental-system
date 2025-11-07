@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FaTableColumns } from "react-icons/fa6";
 
 function Navbar({ onLoginClick, onSignupClick }) {
   const email = localStorage.getItem("email");
@@ -29,22 +30,21 @@ function Navbar({ onLoginClick, onSignupClick }) {
           <div className="hidden mt-2 mr-4 sm:inline-block">
             <span></span>
           </div>
-          {!email && (
+          {!email ? (
             <span
               onClick={onSignupClick}
               className="ml-4 text-gray-700 hover:text-cyan-500 cursor-pointer"
             >
               Sign up
             </span>
-          )}
-
-          {/* <button
-            type="button"
-            onClick={onLoginClick}
-            className="ml-4 text-white bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none"
-          >
-            Login
-          </button> */}
+          ) : (
+            <button
+              type="button"
+              className="flex items-center gap-3 text-gray-700 border border-gray-700 hover:bg-gray-200 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none"
+            >
+              <FaTableColumns size={15} />
+              Go to Dashboard
+            </button>)}
 
           {!email ? (
             <button
@@ -59,7 +59,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
               className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700"
             >
               {/* <FaUser /> */}
-              <span className="hidden md:inline ml-2">Logout</span>
+              <span className="hidden md:inline">Logout</span>
             </button>
           )}
 
