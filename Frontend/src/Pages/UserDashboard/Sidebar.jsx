@@ -1,4 +1,7 @@
 import React from 'react'
+import { FaTableColumns } from "react-icons/fa6";
+import { FaUserCircle, FaHistory } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 function Sidebar() {
     return (
@@ -18,7 +21,7 @@ function Sidebar() {
                         href="#"
                         className="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-medium shadow-md transition"
                     >
-                        <i className="bx bxs-dashboard"></i>
+                        <FaTableColumns className="text-xl" />
                         <span>Dashboard</span>
                     </a>
                 </li>
@@ -27,7 +30,7 @@ function Sidebar() {
                         href="#"
                         className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
                     >
-                        <i className="bx bxs-group"></i>
+                        <FaUserCircle className="text-xl" />
                         <span>My Profile</span>
                     </a>
                 </li>
@@ -36,7 +39,7 @@ function Sidebar() {
                         href="#"
                         className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
                     >
-                        <i className="bx bxs-food-menu"></i>
+                        <FaHistory className="text-xl" />
                         <span>Rental History</span>
                     </a>
                 </li>
@@ -45,7 +48,7 @@ function Sidebar() {
                         href="#"
                         className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
                     >
-                        <i className="bx bxs-receipt"></i>
+                        <RiLockPasswordFill className="text-xl" />
                         <span>Change Password</span>
                     </a>
                 </li>
