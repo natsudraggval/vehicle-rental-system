@@ -8,13 +8,6 @@ function Sidebar() {
         <aside
             className="bg-gray-900 w-64 min-h-screen p-6 shadow-xl fixed top-0 left-0 flex-shrink-0"
         >
-            <a
-                href="#"
-                className="flex items-center space-x-2 text-2xl font-bold mb-10 text-white"
-            >
-                <img src="image/dash.png" alt="Logo" className="w-14 h-8" />
-                <span>RentaRide</span>
-            </a>
             <ul className="space-y-2">
                 <li>
                     <a

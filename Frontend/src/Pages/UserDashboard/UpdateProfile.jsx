@@ -3,9 +3,9 @@ import React from 'react'
 function UpdateProfile() {
     return (
         <div
-            class="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition"
+            class="bg-white shadow-md p-11 rounded-lg hover:shadow-md transition"
         >
-            <h3 class="text-2xl font-bold text-gray-800 mb-6">My Profile</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Edit Profile</h3>
 
             <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>

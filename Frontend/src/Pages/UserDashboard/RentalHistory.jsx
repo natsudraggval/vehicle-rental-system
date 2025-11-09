@@ -3,7 +3,7 @@ import React from 'react'
 function RentalHistory() {
     return (
         <div
-            class="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition"
+            class="bg-white shadow-md p-11 rounded-lg hover:shadow-md transition"
         >
             <h3 class="text-2xl font-bold text-gray-800 mb-6">
                 My Rental History
