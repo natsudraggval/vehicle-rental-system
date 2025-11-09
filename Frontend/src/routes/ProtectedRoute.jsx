@@ -1,23 +1,19 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = ({ children, allowedRoles }) => {
-    // Use token to check if the user is authenticated
-    const isAuthenticated = localStorage.getItem('token');
+    const isAuthenticated = !!localStorage.getItem('token');
+    const userRole = localStorage.getItem('role') || null;
 
-    // Retrieve the role from localStorage
-    const userRole = localStorage.getItem('role') || 'user';  // Default to 'user' if not found
-
-    // If not authenticated, redirect to admin login page
+    // Not logged in -> home
     if (!isAuthenticated) {
-        return <Navigate to="/admin/login" replace />;
+        return <Navigate to="/" replace />;
     }
 
-    // If user role doesn't match allowedRoles, redirect to home (or other fallback)
+    // Logged in but role not allowed -> home
     if (allowedRoles && !allowedRoles.includes(userRole)) {
         return <Navigate to="/" replace />;
     }
 
-    // If a child element is passed, render it. Otherwise, render the Outlet (for nested routes)
     return children ? children : <Outlet />;
 };
 
