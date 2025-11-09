@@ -13,8 +13,15 @@ import { ToastContainer } from "react-toastify";
 import DashboardLayout from "../Pages/Admin/AdminDashboard/DashboardLayout";
 import DashboardHome from "../Pages/Admin/AdminDashboard/Home";
 import ManageVehicles from "../Pages/Admin/AdminDashboard/ManageVehicles";
-import AdminLogin from "../Pages/Admin/Auth/AdminLogin";
 import PrivateRoute from "./ProtectedRoute";
+
+// User Dashboard imports
+import UserDashboardLayout from "../Pages/UserDashboard/DashboardLayout";
+import UserDashboardHome from "../Pages/UserDashboard/Home";
+import UpdateProfile from "../Pages/UserDashboard/UpdateProfile";
+import RentalHistory from "../Pages/UserDashboard/RentalHistory";
+import UpdatePassword from "../Pages/UserDashboard/UpdatePassword";
+
 
 function MyRoutes() {
   return (
@@ -27,7 +34,7 @@ function MyRoutes() {
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="browsevehicles" element={<BrowseVehicles />} />
 
-          {/* Add admin/login here as a child route so App is mounted and can show the modal */}
+          {/* Admin/login here as a child route so App is mounted and can show the modal */}
           <Route path="admin/login" element={<></>} />
 
           <Route element={<Auth />}>
@@ -43,6 +50,17 @@ function MyRoutes() {
             <Route index element={<DashboardHome />} /> {/* /admin */}
             <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
             <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
+          </Route>
+        </Route>
+
+        {/* User Dashboard Routes */}
+        <Route element={<PrivateRoute allowedRoles={["user"]} />}>
+          <Route path="/dashboard" element={<UserDashboardLayout />}>
+            <Route index element={<UserDashboardHome />} />
+            <Route path="home" element={<UserDashboardHome />} />
+            <Route path="update-profile" element={<UpdateProfile />} />
+            <Route path="rental-history" element={<RentalHistory />} />
+            <Route path="update-password" element={<UpdatePassword />} />
           </Route>
         </Route>
 

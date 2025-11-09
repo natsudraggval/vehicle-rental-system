@@ -21,7 +21,7 @@ function RentalHistory() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-t hover:bg-gray-50 transition">
+                        <tr class="border-t border-gray-200 hover:bg-gray-50 transition">
                             <td class="py-3 px-4">1</td>
                             <td>Honda Dio</td>
                             <td>05 Nov 2025 - 07 Nov 2025</td>
@@ -33,7 +33,7 @@ function RentalHistory() {
                                 >
                             </td>
                         </tr>
-                        <tr class="border-t hover:bg-gray-50 transition">
+                        <tr class="border-t border-gray-200 hover:bg-gray-50 transition">
                             <td class="py-3 px-4">2</td>
                             <td>KTM Duke 200</td>
                             <td>08 Nov 2025 - 10 Nov 2025</td>
@@ -45,7 +45,7 @@ function RentalHistory() {
                                 >
                             </td>
                         </tr>
-                        <tr class="border-t hover:bg-gray-50 transition">
+                        <tr class="border-t border-gray-200 hover:bg-gray-50 transition">
                             <td class="py-3 px-4">3</td>
                             <td>Kona Electric</td>
                             <td>01 Nov 2025 - 03 Nov 2025</td>

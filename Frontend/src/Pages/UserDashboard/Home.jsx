@@ -87,7 +87,7 @@ function Home() {
 
 
             <footer
-                className="bg-white p-4 text-center text-sm text-gray-400 rounded-lg shadow-md border-t border-gray-200"
+                className="bg-white p-4 text-center text-sm text-gray-400 rounded-lg shadow-md border-t border-gray-200 mt-6"
             >
                 © 2025 RentaRide. All rights reserved.
             </footer>
