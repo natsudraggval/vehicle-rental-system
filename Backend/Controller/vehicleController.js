@@ -153,7 +153,7 @@ const getAllVehicles = async (req, res) => {
       ];
     }
 
-    const vehicles = await Vehicle.find(query).sort({ createdAt: -1 });
+    const vehicles = await Vehicle.find(query).sort({ createdAt: 1 });
     res.status(200).json(vehicles);
   } catch (error) {
     res.status(500).json({
