@@ -13,6 +13,9 @@ import { ToastContainer } from "react-toastify";
 import DashboardLayout from "../Pages/Admin/AdminDashboard/DashboardLayout";
 import DashboardHome from "../Pages/Admin/AdminDashboard/Home";
 import ManageVehicles from "../Pages/Admin/AdminDashboard/ManageVehicles";
+import Rentals from "../Pages/Admin/AdminDashboard/Rentals";
+import RentalsHistory from "../Pages/Admin/AdminDashboard/RentalsHistory";
+import Analytics from "../Pages/Admin/AdminDashboard/Analytics";
 import PrivateRoute from "./ProtectedRoute";
 
 // User Dashboard imports
@@ -50,6 +53,9 @@ function MyRoutes() {
             <Route index element={<DashboardHome />} /> {/* /admin */}
             <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
             <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
+            <Route path="rentals" element={<Rentals />} /> {/* /admin/rentals */}
+            <Route path="rentals-history" element={<RentalsHistory />} /> {/* /admin/rentalshistory */}
+            <Route path="analytics" element={<Analytics />} /> {/* /admin/analytics */}
           </Route>
         </Route>
 

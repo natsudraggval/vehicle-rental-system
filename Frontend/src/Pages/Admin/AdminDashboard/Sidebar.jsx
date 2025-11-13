@@ -55,33 +55,52 @@ function Sidebar() {
                         <span>Manage Vehicles</span>
                     </NavLink>
                 </li>
+
                 <li>
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
+                    <NavLink
+                        to="rentals"
+                        className={({ isActive }) =>
+                            `flex items-center space-x-3 p-3 rounded-lg ${isActive
+                                ? "bg-cyan-500 text-white"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-cyan-400"
+                            }`
+                        }
                     >
                         <BsReceipt className="text-xl" />
                         <span>Rentals</span>
-                    </a>
+                    </NavLink>
                 </li>
+
                 <li>
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
+                    <NavLink
+                        to="rentals-history"
+                        className={({ isActive }) =>
+                            `flex items-center space-x-3 p-3 rounded-lg ${isActive
+                                ? "bg-cyan-500 text-white"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-cyan-400"
+                            }`
+                        }
                     >
                         <BsClockHistory className="text-xl" />
                         <span>History</span>
-                    </a>
+                    </NavLink>
                 </li>
+
                 <li>
-                    <a
-                        href="#"
-                        className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition"
+                    <NavLink
+                        to="analytics"
+                        className={({ isActive }) =>
+                            `flex items-center space-x-3 p-3 rounded-lg ${isActive
+                                ? "bg-cyan-500 text-white"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-cyan-400"
+                            }`
+                        }
                     >
                         <BsFileEarmarkBarGraph className="text-xl" />
-                        <span>Reports</span>
-                    </a>
+                        <span>Analytics</span>
+                    </NavLink>
                 </li>
+
                 <li>
                     <a
                         href="#" onClick={handleLogout}
