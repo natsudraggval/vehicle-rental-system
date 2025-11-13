@@ -87,30 +87,30 @@ const Analytics = () => {
 
     return (
         <div div className="min-h-screen bg-gray-100">
-        <div className="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                Analytics Overview
-            </h3>
+            <div className="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition mt-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                    Analytics Overview
+                </h3>
 
-            {/* SIDE-BY-SIDE CHARTS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* BAR CHART */}
-                <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
-                    <h4 className="text-lg font-semibold mb-2 text-gray-700">
-                        Requests by Vehicle Type
-                    </h4>
-                    <Bar data={vehicleTypeData} options={vehicleTypeOptions} height={180} />
-                </div>
+                {/* SIDE-BY-SIDE CHARTS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* BAR CHART */}
+                    <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+                        <h4 className="text-lg font-semibold mb-2 text-gray-700">
+                            Requests by Vehicle Type
+                        </h4>
+                        <Bar data={vehicleTypeData} options={vehicleTypeOptions} height={180} />
+                    </div>
 
-                {/* LINE CHART */}
-                <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
-                    <h4 className="text-lg font-semibold mb-2 text-gray-700">
-                        Requests Trend (Last 6 Months)
-                    </h4>
-                    <Line data={requestTrendData} options={requestTrendOptions} height={180} />
+                    {/* LINE CHART */}
+                    <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+                        <h4 className="text-lg font-semibold mb-2 text-gray-700">
+                            Requests Trend (Last 6 Months)
+                        </h4>
+                        <Line data={requestTrendData} options={requestTrendOptions} height={180} />
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
