@@ -102,7 +102,7 @@ function BrowseVehicles() {
                 </p>
                 <div className="flex items-center">
                   <p className="text-lg font-semibold text-gray-900 cursor-auto my-3">
-                    {item.price}
+                    Rs {item.price}
                   </p>
                   <div className="ml-auto">
                     <button className="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-700 transition duration-300">
