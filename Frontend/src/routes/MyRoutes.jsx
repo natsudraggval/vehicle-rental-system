@@ -24,7 +24,7 @@ import UserDashboardHome from "../Pages/UserDashboard/Home";
 import UpdateProfile from "../Pages/UserDashboard/UpdateProfile";
 import RentalHistory from "../Pages/UserDashboard/RentalHistory";
 import UpdatePassword from "../Pages/UserDashboard/UpdatePassword";
-
+import VehicleRentalPage from "../Pages/VehicleRentalPage";
 
 function MyRoutes() {
   return (
@@ -69,6 +69,9 @@ function MyRoutes() {
             <Route path="update-password" element={<UpdatePassword />} />
           </Route>
         </Route>
+
+        {/* single vehicle page */}
+        <Route path="/vehicle/:id" element={<VehicleRentalPage />} />
 
         {/* Redirects any unknown route */}
         <Route path="*" element={<Navigate to="/" />} />
