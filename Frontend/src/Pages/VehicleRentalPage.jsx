@@ -6,6 +6,101 @@ function VehicleRentalPage() {
     const [vehicle, setVehicle] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [dateError, setDateError] = useState("");
+    // User info state
+    const [user, setUser] = useState(null);
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+
+
+    useEffect(() => {
+        // Populate user info from multiple possible storage locations
+        const userJson = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+        let found = false;
+
+        if (userJson) {
+            try {
+                const parsed = JSON.parse(userJson);
+                setFullName(parsed.fullname ?? parsed.fullName ?? "");
+                setEmail(parsed.email ?? "");
+                setUser(parsed);
+                found = true;
+            } catch (err) {
+                // ignore parse errors
+            }
+        }
+
+        if (!found) {
+            const storedName = localStorage.getItem("fullname");
+            const storedEmail = localStorage.getItem("email");
+            if (storedName || storedEmail) {
+                setFullName(storedName || "");
+                setEmail(storedEmail || "");
+                setUser({}); // mark as logged (truthy) so inputs get disabled
+                found = true;
+            }
+        }
+
+        // If there's a token but no profile info, consider user logged in (disable fields)
+        if (!found && token) {
+            setUser({}); // truthy
+        }
+    }, []);
+
+
+
+
+    // Calculate total price whenever dates change
+    useEffect(() => {
+        if (!startDate || !endDate) {
+            setTotalPrice(0);
+            setDateError("");
+            return;
+        }
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const today = new Date();
+
+        // Reset time for today to avoid time issues
+        today.setHours(0, 0, 0, 0);
+
+        // Prevent past start date
+        if (start < today) {
+            setTotalPrice(0);
+            setDateError("Start date cannot be in the past.");
+            return;
+        }
+
+        //  End date before start date
+        if (end < start) {
+            setTotalPrice(0);
+            setDateError("End date cannot be before start date.");
+            return;
+        }
+
+        // Calculate day difference
+        const diffTime = end - start;
+        let totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        //  Prevent same-day booking
+        if (totalDays < 1) {
+            setTotalPrice(0);
+            setDateError("Start and end date cannot be the same.");
+            return;
+        }
+
+        // All good
+        setDateError("");
+        setTotalPrice(totalDays * (vehicle?.price || 0));
+    }, [startDate, endDate, vehicle?.price]);
+
+
+
 
     useEffect(() => {
         if (!id) return;
@@ -73,28 +168,38 @@ function VehicleRentalPage() {
                 <div className="bg-gray-50 p-8 rounded-2xl shadow-inner">
                     <h2 className="text-2xl font-bold mb-6">Book This Vehicle</h2>
 
-                    <form className="grid grid-cols-1 gap-6" novalidate>
+                    <form className="grid grid-cols-1 gap-6" noValidate>
                         <div>
                             <label className="font-medium text-gray-600">Full Name</label>
                             <input
                                 type="text"
                                 name="fullName"
                                 required
-                                className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                                disabled={!!user}
+                                className={`mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 ${user ? "bg-gray-100 cursor-not-allowed" : ""
+                                    }`}
                                 placeholder="Enter your name"
                             />
+
                         </div>
 
                         <div>
-                            <label className="font-medium text-gray-600">Phone Number</label>
+                            <label className="font-medium text-gray-600">Email</label>
                             <input
-                                type="tel"
-                                name="phone"
+                                type="email"
+                                name="email"
                                 required
-                                pattern="[0-9]{10}"
-                                className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                placeholder="98XXXXXXXX"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                disabled={!!user}
+                                className={`mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 ${user ? "bg-gray-100 cursor-not-allowed" : ""
+                                    }`}
+                                placeholder="Enter your email"
                             />
+
+
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -104,7 +209,8 @@ function VehicleRentalPage() {
                                     type="date"
                                     name="startDate"
                                     required
-                                    min="<?= date('Y-m-d'); ?>"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
                                     className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                                 />
                             </div>
@@ -115,29 +221,45 @@ function VehicleRentalPage() {
                                     type="date"
                                     name="endDate"
                                     required
-                                    min="<?= date('Y-m-d'); ?>"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
                                     className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                                 />
                             </div>
                         </div>
+
+                        {/* Error message for invalid dates */}
+                        {dateError && (
+                            <p className="text-red-500 text-sm mt-[-10px]">{dateError}</p>
+                        )}
+
+
 
                         <div>
                             <label className="font-medium text-gray-600">Total Price</label>
                             <input
                                 type="text"
                                 name="totalPrice"
-                                readonly
-                                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-not-allowed"
+                                readOnly
+                                value={totalPrice ? `Rs ${totalPrice}` : ""}
+                                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none cursor-not-allowed"
                             />
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full mt-4 bg-cyan-500 hover:bg-cyan-600 text-white py-3 text-lg rounded-lg shadow-md transition"
+                            disabled={!!dateError || totalPrice === 0}
+                            className={`w-full mt-1 text-white py-3 text-lg rounded-lg shadow-md transition 
+                                    ${dateError || totalPrice === 0
+                                    ? "bg-gray-400 cursor-not-allowed"
+                                    : "bg-cyan-500 hover:bg-cyan-600"
+                                }`}
                         >
                             Confirm Booking
                         </button>
+
                     </form>
+
                 </div>
             </div>
         </div>

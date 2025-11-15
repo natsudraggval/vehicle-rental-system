@@ -44,8 +44,8 @@ function BrowseVehicles() {
             <button
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-2 rounded-full font-medium shadow-sm transition-all duration-200 ${selectedCategory === category
-                  ? "bg-cyan-600 text-white hover:bg-cyan-700"
-                  : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white"
+                ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white"
                 }`}
             >
               {category}
