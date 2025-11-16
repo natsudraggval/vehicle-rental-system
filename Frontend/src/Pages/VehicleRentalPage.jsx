@@ -127,7 +127,7 @@ function VehicleRentalPage() {
             } else {
                 toast.success("Booking successful!");
                 setTimeout(() => {
-                    navigate("/browsevehicles"); // adjust this route to your BrowseVehicle page
+                    navigate("/browsevehicles"); 
                 }, 2000);
             }
         } catch (err) {

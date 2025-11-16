@@ -3,15 +3,24 @@ import Vehicle from "../Models/vehicleModel.js";
 import VerifyToken from "../Middleware/verifyToken.js";
 import mongoose from "mongoose";
 
-
 // Create a booking and authentication middleware sets req.userId, it will be used as userId.
 export const createBooking = async (req, res) => {
   try {
-    const { vehicleId, startDate, endDate, fullname, email, paymentMethod, paymentDetails } = req.body;
+    const {
+      vehicleId,
+      startDate,
+      endDate,
+      fullname,
+      email,
+      paymentMethod,
+      paymentDetails,
+    } = req.body;
     const userId = req.user?._id || null; // make sure auth middleware sets req.user
 
     if (!vehicleId || !startDate || !endDate) {
-      return res.status(400).json({ message: "vehicleId, startDate and endDate are required" });
+      return res
+        .status(400)
+        .json({ message: "vehicleId, startDate and endDate are required" });
     }
 
     const vehicle = await Vehicle.findById(vehicleId);
@@ -22,12 +31,21 @@ export const createBooking = async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (s < today) return res.status(400).json({ message: "Start date cannot be in the past" });
-    if (e < s) return res.status(400).json({ message: "End date cannot be before start date" });
+    if (s < today)
+      return res
+        .status(400)
+        .json({ message: "Start date cannot be in the past" });
+    if (e < s)
+      return res
+        .status(400)
+        .json({ message: "End date cannot be before start date" });
 
     const diffTime = e - s;
     const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (totalDays < 1) return res.status(400).json({ message: "Booking must be at least 1 day" });
+    if (totalDays < 1)
+      return res
+        .status(400)
+        .json({ message: "Booking must be at least 1 day" });
 
     const totalPrice = totalDays * (vehicle.price || 0);
 
@@ -51,14 +69,17 @@ export const createBooking = async (req, res) => {
       return res.status(201).json({ message: "Booking created", booking });
     } catch (err) {
       console.error("Booking creation error:", err);
-      return res.status(500).json({ message: "Server error", error: err.message });
+      return res
+        .status(500)
+        .json({ message: "Server error", error: err.message });
     }
   } catch (err) {
     console.error("CreateBooking controller error:", err);
-    return res.status(500).json({ message: "Server error", error: err.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: err.message });
   }
 };
-
 
 export const getBookingById = async (req, res) => {
   try {
@@ -80,7 +101,6 @@ export const getBookingById = async (req, res) => {
   }
 };
 
-
 export const getUserBookings = async (req, res) => {
   try {
     // Prefered authenticated user id; fallback to :userId param
@@ -101,7 +121,6 @@ export const getUserBookings = async (req, res) => {
   }
 };
 
-
 export const getAllBookings = async (req, res) => {
   try {
     // Admin check in route/middleware if required
@@ -117,7 +136,6 @@ export const getAllBookings = async (req, res) => {
       .json({ message: "Server error", error: err.message });
   }
 };
-
 
 export const updateBookingStatus = async (req, res) => {
   try {
@@ -141,7 +159,6 @@ export const updateBookingStatus = async (req, res) => {
       .json({ message: "Server error", error: err.message });
   }
 };
-
 
 // Mark booking as returned. Calculates fine if returned late, Body: none (actualReturnDate will be set to now), Fine policy: fine = lateDays * vehicle.price  (adjust as needed)
 export const markReturned = async (req, res) => {
@@ -180,7 +197,6 @@ export const markReturned = async (req, res) => {
       .json({ message: "Server error", error: err.message });
   }
 };
-
 
 // Add / update payment info for a booking, Body: { paymentId, paymentStatus: "pending"|"paid"|"failed", paymentMethod, paymentDetails }
 export const addPayment = async (req, res) => {
