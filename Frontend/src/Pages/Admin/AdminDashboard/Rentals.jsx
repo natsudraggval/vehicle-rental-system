@@ -93,15 +93,21 @@ function Rentals() {
                                 </td>
                                 <td className="py-3 px-4 space-x-2">
                                     <button
-                                        className="border border-gray-300 text-gray-700 hover:bg-cyan-50 hover:border-cyan-500 hover:text-cyan-600 py-1.5 px-4 rounded-lg text-sm shadow-sm transition"
+                                        name="bg-emerald-500 hover:bg-emerald-600 text-white py-1.5 px-3 rounded-lg text-sm shadow transition"
                                     >
                                         Approve
                                     </button>
 
                                     <button
-                                        className="bg-rose-500 hover:bg-rose-600 text-white py-1.5 px-4 rounded-lg text-sm shadow transition"
+                                        name="bg-rose-500 hover:bg-rose-600 text-white py-1.5 px-3 rounded-lg text-sm shadow transition"
                                     >
                                         Decline
+                                    </button>
+
+                                    <button
+                                        name="border border-gray-300 text-gray-700 hover:bg-cyan-50 hover:border-cyan-500 hover:text-cyan-600 py-1.5 px-3 rounded-lg text-sm shadow-sm transition"
+                                    >
+                                        Returned
                                     </button>
                                 </td>
                             </tr>
