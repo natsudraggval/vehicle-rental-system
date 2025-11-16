@@ -56,7 +56,7 @@ function BrowseVehicles() {
 
       {/* Loading State */}
       {isPending && (
-        <div className="flex justify-center items-center mt-2">
+        <div className="flex justify-center items-center mt-10">
           <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />
         </div>
       )}

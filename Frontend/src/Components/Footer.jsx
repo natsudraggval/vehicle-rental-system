@@ -57,7 +57,7 @@ function Footer() {
 
       <div className="bg-slate-700 pt-2">
         <div
-          className="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col
+          className="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-xl flex-col
       max-w-screen-lg items-center"
         >
           <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">

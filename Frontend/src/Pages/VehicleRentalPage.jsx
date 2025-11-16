@@ -127,7 +127,7 @@ function VehicleRentalPage() {
             } else {
                 toast.success("Booking successful!");
                 setTimeout(() => {
-                    navigate("/browsevehicles"); 
+                    navigate("/browsevehicles");
                 }, 2000);
             }
         } catch (err) {
@@ -136,7 +136,7 @@ function VehicleRentalPage() {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />;
     if (error) return <div className="text-red-500">{error}</div>;
     if (!vehicle) return <div>Vehicle not found</div>;
 
