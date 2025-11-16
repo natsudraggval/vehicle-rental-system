@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function VehicleRentalPage() {
     const { id } = useParams();
+
+    const navigate = useNavigate();
+
     const [vehicle, setVehicle] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,14 +15,11 @@ function VehicleRentalPage() {
     const [endDate, setEndDate] = useState("");
     const [totalPrice, setTotalPrice] = useState(0);
     const [dateError, setDateError] = useState("");
-    // User info state
     const [user, setUser] = useState(null);
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
 
-
     useEffect(() => {
-        // Populate user info from multiple possible storage locations
         const userJson = localStorage.getItem("user");
         const token = localStorage.getItem("token");
         let found = false;
@@ -29,9 +31,7 @@ function VehicleRentalPage() {
                 setEmail(parsed.email ?? "");
                 setUser(parsed);
                 found = true;
-            } catch (err) {
-                // ignore parse errors
-            }
+            } catch (err) { }
         }
 
         if (!found) {
@@ -40,21 +40,16 @@ function VehicleRentalPage() {
             if (storedName || storedEmail) {
                 setFullName(storedName || "");
                 setEmail(storedEmail || "");
-                setUser({}); // mark as logged (truthy) so inputs get disabled
+                setUser({});
                 found = true;
             }
         }
 
-        // If there's a token but no profile info, consider user logged in (disable fields)
         if (!found && token) {
-            setUser({}); // truthy
+            setUser({});
         }
     }, []);
 
-
-
-
-    // Calculate total price whenever dates change
     useEffect(() => {
         if (!startDate || !endDate) {
             setTotalPrice(0);
@@ -65,42 +60,31 @@ function VehicleRentalPage() {
         const start = new Date(startDate);
         const end = new Date(endDate);
         const today = new Date();
-
-        // Reset time for today to avoid time issues
         today.setHours(0, 0, 0, 0);
 
-        // Prevent past start date
         if (start < today) {
             setTotalPrice(0);
             setDateError("Start date cannot be in the past.");
             return;
         }
-
-        //  End date before start date
         if (end < start) {
             setTotalPrice(0);
             setDateError("End date cannot be before start date.");
             return;
         }
 
-        // Calculate day difference
         const diffTime = end - start;
-        let totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-        //  Prevent same-day booking
         if (totalDays < 1) {
             setTotalPrice(0);
             setDateError("Start and end date cannot be the same.");
             return;
         }
 
-        // All good
         setDateError("");
         setTotalPrice(totalDays * (vehicle?.price || 0));
     }, [startDate, endDate, vehicle?.price]);
-
-
-
 
     useEffect(() => {
         if (!id) return;
@@ -115,151 +99,103 @@ function VehicleRentalPage() {
             .finally(() => setLoading(false));
     }, [id]);
 
-    if (loading)
-        return (
-            <div className="fixed inset-0 flex justify-center items-center">
-                <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />
-            </div>
-        );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!vehicle) return;
 
-    if (error) return <div className="p-6 text-red-500">{error}</div>;
-    if (!vehicle) return <div className="p-6">Vehicle not found</div>;
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch("http://localhost:3000/api/booking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    vehicleId: vehicle._id,
+                    startDate,
+                    endDate,
+                    fullname: fullName,
+                    email,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                toast.error(data.message || "Booking failed");
+            } else {
+                toast.success("Booking successful!");
+                setTimeout(() => {
+                    navigate("/browsevehicles"); // adjust this route to your BrowseVehicle page
+                }, 2000);
+            }
+        } catch (err) {
+            toast.error("Server error. Please try again.");
+            console.error(err);
+        }
+    };
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div className="text-red-500">{error}</div>;
+    if (!vehicle) return <div>Vehicle not found</div>;
 
     return (
         <div className="bg-gray-100 p-6">
-            <div
-                className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-6 grid grid-cols-1 lg:grid-cols-2 gap-12"
-            >
+            <ToastContainer />
+            <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div>
-                    <img
-                        src={vehicle.imageUrl}
-                        className="w-full h-64 object-contain rounded-2xl shadow-sm"
-                        alt={vehicle.name}
-                    />
-
+                    <img src={vehicle.imageUrl} alt={vehicle.name} className="w-full h-64 object-contain rounded-2xl shadow-sm" />
                     <h1 className="text-3xl font-bold text-gray-800 mt-6">{vehicle.name}</h1>
-                    <p className="text-gray-500 text-sm mt-1">
-                        Vehicle No: <strong>{vehicle.vehicleNumber ?? "N/A"}</strong>
-                    </p>
-
+                    <p className="text-gray-500 text-sm mt-1">Vehicle No: <strong>{vehicle.vehicleNumber ?? "N/A"}</strong></p>
                     <div className="grid grid-cols-3 gap-4 mt-6 text-gray-700">
                         <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-500">Category</p>
                             <p className="font-semibold">{vehicle.category}</p>
                         </div>
-
                         <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-500">Availability</p>
                             <p className="font-semibold text-green-600">Available</p>
                         </div>
-
                         <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-500">Price (Per Day)</p>
                             <p className="font-semibold text-cyan-600">Rs {vehicle.price}</p>
                         </div>
                     </div>
-
                     <h2 className="text-lg font-semibold mt-6 mb-2">Description</h2>
-                    <p className="text-gray-600 text-justify leading-relaxed">
-                        {vehicle.description}
-                    </p>
+                    <p className="text-gray-600 text-justify leading-relaxed">{vehicle.description}</p>
                 </div>
 
                 <div className="bg-gray-50 p-8 rounded-2xl shadow-inner">
                     <h2 className="text-2xl font-bold mb-6">Book This Vehicle</h2>
-
-                    <form className="grid grid-cols-1 gap-6" noValidate>
+                    <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
                         <div>
                             <label className="font-medium text-gray-600">Full Name</label>
-                            <input
-                                type="text"
-                                name="fullName"
-                                required
-                                value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
-                                disabled={!!user}
-                                className={`mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 ${user ? "bg-gray-100 cursor-not-allowed" : ""
-                                    }`}
-                                placeholder="Enter your name"
-                            />
-
+                            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} disabled={!!user} className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" />
                         </div>
-
                         <div>
                             <label className="font-medium text-gray-600">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                disabled={!!user}
-                                className={`mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 ${user ? "bg-gray-100 cursor-not-allowed" : ""
-                                    }`}
-                                placeholder="Enter your email"
-                            />
-
-
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={!!user} className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" />
                         </div>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="font-medium text-gray-600">Start Date</label>
-                                <input
-                                    type="date"
-                                    name="startDate"
-                                    required
-                                    value={startDate}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                />
+                                <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" />
                             </div>
-
                             <div>
                                 <label className="font-medium text-gray-600">End Date</label>
-                                <input
-                                    type="date"
-                                    name="endDate"
-                                    required
-                                    value={endDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                    className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                                />
+                                <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" />
                             </div>
                         </div>
-
-                        {/* Error message for invalid dates */}
-                        {dateError && (
-                            <p className="text-red-500 text-sm mt-[-10px]">{dateError}</p>
-                        )}
-
-
-
+                        {dateError && <p className="text-red-500 text-sm">{dateError}</p>}
                         <div>
                             <label className="font-medium text-gray-600">Total Price</label>
-                            <input
-                                type="text"
-                                name="totalPrice"
-                                readOnly
-                                value={totalPrice ? `Rs ${totalPrice}` : ""}
-                                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none cursor-not-allowed"
-                            />
+                            <input type="text" value={totalPrice ? `Rs ${totalPrice}` : ""} readOnly className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" />
                         </div>
-
-                        <button
-                            type="submit"
-                            disabled={!!dateError || totalPrice === 0}
-                            className={`w-full mt-1 text-white py-3 text-lg rounded-lg shadow-md transition 
-                                    ${dateError || totalPrice === 0
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-cyan-500 hover:bg-cyan-600"
-                                }`}
-                        >
+                        <button type="submit" disabled={!!dateError || totalPrice === 0} className="w-full mt-1 text-white py-3 text-lg rounded-lg shadow-md bg-cyan-500 hover:bg-cyan-600 disabled:bg-gray-400">
                             Confirm Booking
                         </button>
-
                     </form>
-
                 </div>
             </div>
         </div>
