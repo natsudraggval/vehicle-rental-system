@@ -4,7 +4,7 @@ function Features() {
   return (
     <section
       id="services"
-      className="mx-auto px-4 space-y-6 bg-gray-200 py-8 md:py-12 lg:py-20"
+      className="mx-auto px-4 space-y-6 bg-gray-50 py-8 md:py-12 lg:py-20"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="font-bold text-gray-900 text-3xl leading-[1.1] sm:text-3xl md:text-5xl">

@@ -25,6 +25,7 @@ import UpdateProfile from "../Pages/UserDashboard/UpdateProfile";
 import RentalHistory from "../Pages/UserDashboard/RentalHistory";
 import UpdatePassword from "../Pages/UserDashboard/UpdatePassword";
 import VehicleRentalPage from "../Pages/VehicleRentalPage";
+import Features from "../Components/Features";
 
 function MyRoutes() {
   return (
@@ -36,6 +37,7 @@ function MyRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="browsevehicles" element={<BrowseVehicles />} />
+          <Route path="features" element={<Features />} />
 
           {/* Admin/login here as a child route so App is mounted and can show the modal */}
           <Route path="admin/login" element={<></>} />

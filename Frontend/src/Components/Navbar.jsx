@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaTableColumns } from "react-icons/fa6";
 
@@ -23,13 +23,13 @@ function Navbar({ onLoginClick, onSignupClick }) {
   return (
     <nav className="bg-white border-gray-200 py-2.5 shadow-md">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-        <a href="#" className="flex items-center">
+        <NavLink to="/" className="flex items-center">
           <img
             src="/image/logo.png"
             alt="RentaRide Logo"
             className="h-10 sm:h-12"
           />
-        </a>
+        </NavLink>
         <div className="flex items-center lg:order-2">
           <div className="hidden mt-2 mr-4 sm:inline-block">
             <span></span>
@@ -109,37 +109,53 @@ function Navbar({ onLoginClick, onSignupClick }) {
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white bg-cyan-500 rounded lg:bg-transparent lg:text-cyan-500 lg:p-0"
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `block py-2 pl-3 pr-4 border-b border-gray-100 lg:border-0 lg:p-0
+                    hover:bg-gray-50 lg:hover:bg-transparent
+                    ${isActive ? "text-cyan-500" : "text-gray-700 lg:hover:text-cyan-500"}`
+                }
                 aria-current="page"
               >
                 Home
-              </a>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="browsevehicles"
-                className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-cyan-500 lg:p-0"
+                className={({ isActive }) =>
+                  `block py-2 pl-3 pr-4 border-b border-gray-100 lg:border-0 lg:p-0
+                    hover:bg-gray-50 lg:hover:bg-transparent
+                    ${isActive ? "text-cyan-500" : "text-gray-700 lg:hover:text-cyan-500"}`
+                }
               >
                 Browse Vehicles
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-cyan-500 lg:p-0"
+              <NavLink
+                to="features"
+                className={({ isActive }) =>
+                  `block py-2 pl-3 pr-4 border-b border-gray-100 lg:border-0 lg:p-0
+                   hover:bg-gray-50 lg:hover:bg-transparent
+                    ${isActive ? "text-cyan-500" : "text-gray-700 lg:hover:text-cyan-500"}`
+                }
               >
                 Features
-              </a>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="aboutus"
-                className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-cyan-500 lg:p-0"
+                className={({ isActive }) =>
+                  `block py-2 pl-3 pr-4 border-b border-gray-100 lg:border-0 lg:p-0
+                    hover:bg-gray-50 lg:hover:bg-transparent
+                    ${isActive ? "text-cyan-500" : "text-gray-700 lg:hover:text-cyan-500"}`
+                }
               >
                 About Us
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
