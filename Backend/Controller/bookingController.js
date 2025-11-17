@@ -213,6 +213,29 @@ export const markReturned = async (req, res) => {
   }
 };
 
+// Stats updater
+export const getBookingStats = async (req, res) => {
+  try {
+    const totalBooking = await Booking.countDocuments(); // total bookings
+    const totalSalesAgg = await Booking.aggregate([
+      { $group: { _id: null, totalSales: { $sum: "$totalPrice" } } },
+    ]);
+    const totalSales = totalSalesAgg[0]?.totalSales || 0;
+
+    // Optional: count distinct vehicles rented
+    const totalRentals = await Booking.distinct("vehicleId").then(
+      (arr) => arr.length
+    );
+
+    return res.json({ totalBooking, totalRentals, totalSales });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ message: "Server error", error: err.message });
+  }
+};
+
 // Add / update payment info for a booking, Body: { paymentId, paymentStatus: "pending"|"paid"|"failed", paymentMethod, paymentDetails }
 export const addPayment = async (req, res) => {
   try {
@@ -244,5 +267,6 @@ export default {
   getAllBookings,
   updateBookingStatus,
   markReturned,
+  getBookingStats,
   addPayment,
 };
