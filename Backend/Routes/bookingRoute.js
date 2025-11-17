@@ -19,13 +19,12 @@ router.get("/user/:userId", verifyToken, getUserBookings);
 router.put("/:id/payment", verifyToken, addPayment);
 
 // Specific static routes first
-router.get("/stats", getBookingStats); 
+router.get("/stats", getBookingStats);
 router.put("/:id/status", verifyToken, updateBookingStatus);
 router.put("/:id/return", verifyToken, markReturned);
 
 // Dynamic routes last
 router.get("/:id", getBookingById);
 router.get("/", getAllBookings);
-
 
 export default router;
