@@ -13,16 +13,6 @@ function Navbar() {
 
             {/* Right Section */}
             <div className="flex items-center space-x-5">
-                {/* Search */}
-                <div className="relative">
-                    <input
-                        type="search"
-                        placeholder="Search Rentals..."
-                        className="p-2 pl-10 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition w-64 bg-gray-50"
-                    />
-                    <HiOutlineSearch className="absolute left-3 top-2.5 text-gray-500 text-lg" />
-                </div>
-
                 {/* Notification */}
                 <a
                     href="#"

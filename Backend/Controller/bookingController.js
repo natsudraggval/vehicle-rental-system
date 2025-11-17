@@ -151,6 +151,19 @@ export const updateBookingStatus = async (req, res) => {
     booking.status = status;
     await booking.save();
 
+    // update vehicle availability based on status
+    if (booking.vehicleId) {
+      const vehicle = await Vehicle.findById(booking.vehicleId);
+      if (vehicle) {
+        if (status === "approved") {
+          vehicle.isAvailable = false; // Vehicle is now booked
+        } else if (status === "declined" || status === "returned") {
+          vehicle.isAvailable = true; // Vehicle is free again
+        }
+        await vehicle.save();
+      }
+    }
+
     return res.json({ message: "Status updated", booking });
   } catch (err) {
     console.error(err);
@@ -182,12 +195,14 @@ export const markReturned = async (req, res) => {
 
     await booking.save();
 
-    // Optional: mark vehicle available again in Vehicle model
-    // if (booking.vehicleId) {
-    //   const vehicle = await Vehicle.findById(booking.vehicleId._id);
-    //   vehicle.isAvailable = true;
-    //   await vehicle.save();
-    // }
+    // Make vehicle available again in Vehicle model
+    if (booking.vehicleId) {
+      const vehicle = await Vehicle.findById(booking.vehicleId._id);
+      if (vehicle) {
+        vehicle.isAvailable = true;
+        await vehicle.save();
+      }
+    }
 
     return res.json({ message: "Vehicle marked returned", booking });
   } catch (err) {

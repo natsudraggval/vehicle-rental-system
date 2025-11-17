@@ -12,17 +12,17 @@ import verifyToken from "../Middleware/verifyToken.js";
 
 const router = express.Router();
 
+// Authenticated routes
+router.post("/", verifyToken, createBooking);
+router.get("/user/:userId", verifyToken, getUserBookings);
+router.put("/:id/payment", verifyToken, addPayment);
 
-// Routes that require authentication, create booking, get bookings for a user, add/update payment information
-router.post("/", verifyToken, createBooking); // Auth required
-router.get("/user/:userId", verifyToken, getUserBookings); // Auth required
-router.patch("/:id/payment", verifyToken, addPayment); // Auth required
+// Specific static routes first
+router.put("/:id/status", verifyToken, updateBookingStatus);
+router.put("/:id/return", verifyToken, markReturned);
 
-
-// Routes that can be public or admin-only, Get booking by ID (could be public or protected), Get all bookings (admin), Update booking status (admin), Mark returned (admin)
-router.get("/:id", getBookingById); // Public for now
-router.get("/", getAllBookings); // Consider adding admin middleware
-router.patch("/:id/status", updateBookingStatus); // Consider admin middleware
-router.patch("/:id/return", markReturned); // Consider admin middleware
+// Dynamic routes last
+router.get("/:id", getBookingById);
+router.get("/", getAllBookings);
 
 export default router;

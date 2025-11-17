@@ -155,8 +155,13 @@ function VehicleRentalPage() {
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-500">Availability</p>
-                            <p className="font-semibold text-green-600">Available</p>
+                            {vehicle.isAvailable ? (
+                                <p className="font-semibold text-green-600">Available</p>
+                            ) : (
+                                <p className="font-semibold text-rose-600">Not Available</p>
+                            )}
                         </div>
+
                         <div className="bg-gray-50 p-4 rounded-lg">
                             <p className="text-sm text-gray-500">Price (Per Day)</p>
                             <p className="font-semibold text-cyan-600">Rs {vehicle.price}</p>
@@ -192,7 +197,7 @@ function VehicleRentalPage() {
                             <label className="font-medium text-gray-600">Total Price</label>
                             <input type="text" value={totalPrice ? `Rs ${totalPrice}` : ""} readOnly className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" />
                         </div>
-                        <button type="submit" disabled={!!dateError || totalPrice === 0} className="w-full mt-1 text-white py-3 text-lg rounded-lg shadow-md bg-cyan-500 hover:bg-cyan-600 disabled:bg-gray-400">
+                        <button type="submit" disabled={!!dateError || totalPrice === 0 || !vehicle.isAvailable} className="w-full mt-1 text-white py-3 text-lg rounded-lg shadow-md bg-cyan-500 hover:bg-cyan-600 disabled:bg-gray-400">
                             Confirm Booking
                         </button>
                     </form>
