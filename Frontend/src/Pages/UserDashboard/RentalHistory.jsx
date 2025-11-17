@@ -72,8 +72,8 @@ function RentalHistory() {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="5" className="text-center py-6 text-gray-500">
-                                        Loading...
+                                    <td colSpan="5" className="py-6">
+                                        <img src="/spinner.svg" alt="Loading" className="h-14 w-14 mx-auto block" />
                                     </td>
                                 </tr>
                             ) : bookings.length === 0 ? (

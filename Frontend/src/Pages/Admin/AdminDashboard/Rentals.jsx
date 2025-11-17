@@ -6,9 +6,8 @@ function Rentals() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
 
-    // -----------------------------
+
     // Fetch All Bookings
-    // -----------------------------
     const fetchBookings = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -32,9 +31,8 @@ function Rentals() {
         fetchBookings();
     }, []);
 
-    // -----------------------------
+
     // Update Booking Status
-    // -----------------------------
     const updateBookingStatus = async (id, status) => {
         try {
             const token = localStorage.getItem("token");
@@ -56,9 +54,8 @@ function Rentals() {
         }
     };
 
-    // -----------------------------
+
     // Mark Returned
-    // -----------------------------
     const markReturned = async (id) => {
         try {
             const token = localStorage.getItem("token");
@@ -79,9 +76,8 @@ function Rentals() {
         }
     };
 
-    // -----------------------------
+
     // Search Filter Logic
-    // -----------------------------
     const filteredBookings = bookings.filter((b) =>
         b.vehicleName?.toLowerCase().includes(search.toLowerCase()) ||
         b.vehicleNumber?.toLowerCase().includes(search.toLowerCase()) ||
@@ -126,8 +122,8 @@ function Rentals() {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="8" className="text-center py-6 text-gray-500">
-                                        Loading bookings...
+                                    <td colSpan="8" className="py-6">
+                                        <img src="/spinner.svg" alt="Loading" className="h-14 w-14 mx-auto block" />
                                     </td>
                                 </tr>
                             ) : filteredBookings.length === 0 ? (

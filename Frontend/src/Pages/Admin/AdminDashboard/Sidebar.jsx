@@ -3,17 +3,27 @@ import { BsSpeedometer, BsReceipt, BsClockHistory, BsFileEarmarkBarGraph, BsBoxA
 import logo from '../../../assets/image/dash.png';
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function Sidebar() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        const confirmLogout = window.confirm("Do you really want to logout?");
-        if (confirmLogout) {
-            localStorage.clear(); // clear all tokens
-            navigate("/", { replace: true }); // replace history entry
-            toast.success("Successfully logged out!");
-        }
+        Swal.fire({
+            title: "Do you really want to logout?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#059669",
+            cancelButtonColor: "#e11d48",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.clear(); // clear all tokens
+                navigate("/", { replace: true }); // no entry from browser's history
+                toast.success("Successfully logged out!");
+            }
+        });
     };
 
     return (
