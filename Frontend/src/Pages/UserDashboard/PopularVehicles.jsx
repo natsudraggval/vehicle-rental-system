@@ -11,7 +11,7 @@ function PopularVehicles() {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center"
             >
                 <div
-                    className="relative bg-white border rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
+                    className="relative bg-white border border-gray-300 rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
                 >
                     <div
                         className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-pink-400 opacity-0 group-hover:opacity-20 transition duration-300 rounded-2xl"
@@ -31,7 +31,7 @@ function PopularVehicles() {
                 </div>
 
                 <div
-                    className="relative bg-white border rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
+                    className="relative bg-white border border-gray-300 rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
                 >
                     <div
                         className="absolute inset-0 bg-gradient-to-tr from-blue-400 to-green-300 opacity-0 group-hover:opacity-20 transition duration-300 rounded-2xl"
@@ -51,7 +51,7 @@ function PopularVehicles() {
                 </div>
 
                 <div
-                    className="relative bg-white border rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
+                    className="relative bg-white border border-gray-300 rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
                 >
                     <div
                         className="absolute inset-0 bg-gradient-to-tr from-yellow-400 to-orange-300 opacity-0 group-hover:opacity-20 transition duration-300 rounded-2xl"
@@ -71,7 +71,7 @@ function PopularVehicles() {
                 </div>
 
                 <div
-                    className="relative bg-white border rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
+                    className="relative bg-white border border-gray-300 rounded-2xl p-4 shadow-lg overflow-hidden transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 group"
                 >
                     <div
                         className="absolute inset-0 bg-gradient-to-tr from-red-400 to-pink-500 opacity-0 group-hover:opacity-20 transition duration-300 rounded-2xl"

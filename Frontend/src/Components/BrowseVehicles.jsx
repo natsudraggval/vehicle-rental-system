@@ -101,7 +101,7 @@ function BrowseVehicles() {
 
                   <div className="ml-auto">
                     <button
-                      className="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-700 transition duration-300"
+                      className="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-700 transition duration-300 cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         const id = item._id ?? item.id;

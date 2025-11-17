@@ -1,6 +1,7 @@
 import React from 'react';
 import { BiSolidBellRing } from "react-icons/bi";
 import DetailsImg from '../../assets/image/details.png'
+import PopularVehicles from './PopularVehicles';
 
 function Home() {
     return (
@@ -28,9 +29,10 @@ function Home() {
                 </div>
             </div>
 
+            <PopularVehicles />
 
             <div
-                className="relative bg-white shadow-xl rounded-xl overflow-hidden grid md:grid-cols-2 items-stretch transition-all duration-300"
+                className="relative bg-white shadow-xl rounded-xl overflow-hidden grid md:grid-cols-2 items-stretch transition-all duration-300 mt-6"
                 style={{
                     backgroundImage: `url(${DetailsImg})`,
                     backgroundRepeat: "no-repeat",
