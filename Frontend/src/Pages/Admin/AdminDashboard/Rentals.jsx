@@ -163,10 +163,10 @@ function Rentals() {
                                                 className={`px-3 py-1 rounded-full text-sm font-medium ${b.status === "pending"
                                                     ? "bg-yellow-100 text-yellow-700"
                                                     : b.status === "approved"
-                                                        ? "bg-green-100 text-green-700"
+                                                        ? "bg-green-200 text-green-700"
                                                         : b.status === "declined"
-                                                            ? "bg-rose-100 text-rose-700"
-                                                            : "bg-cyan-100 text-cyan-700"
+                                                            ? "bg-rose-200 text-rose-700"
+                                                            : "bg-cyan-200 text-cyan-700"
                                                     }`}
                                             >
                                                 {b.status}

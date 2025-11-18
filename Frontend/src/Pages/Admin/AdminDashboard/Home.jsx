@@ -1,22 +1,50 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { BsCalendarCheckFill, BsPeopleFill, BsCurrencyExchange } from "react-icons/bs";
 
 function Home() {
+    const [stats, setStats] = useState({
+        totalBooking: 0,
+        totalRentals: 0,
+        totalSales: 0
+    });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                // Replace with your actual API endpoint
+                const response = await fetch('http://localhost:3000/api/booking/stats');
+                if (!response.ok) throw new Error('Failed to fetch data');
+
+                const data = await response.json();
+                // Assuming your backend returns an object like:
+                // { totalBooking: 1020, totalRentals: 2834, totalSales: 2543 }
+                setStats({
+                    totalBooking: data.totalBooking,
+                    totalRentals: data.totalRentals,
+                    totalSales: data.totalSales
+                });
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        };
+
+        fetchStats();
+    }, []);
     return (
         <div className="space-y-6">
             {/* STAT CARDS */}
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <li className="bg-white shadow-lg p-6 rounded-lg flex items-center justify-between transform hover:scale-105 hover:shadow-lg transition">
                     <div>
-                        <h3 className="text-2xl font-semibold text-gray-800">1020</h3>
-                        <p className="text-gray-500">New Booking</p>
+                        <h3 className="text-2xl font-semibold text-gray-800">{stats.totalBooking}</h3>
+                        <p className="text-gray-500">Total Booking</p>
                     </div>
                     <BsCalendarCheckFill className="text-4xl text-cyan-500" />
                 </li>
 
                 <li className="bg-white shadow-md p-6 rounded-lg flex items-center justify-between transform hover:scale-105 hover:shadow-md transition">
                     <div>
-                        <h3 className="text-2xl font-semibold text-gray-800">2834</h3>
+                        <h3 className="text-2xl font-semibold text-gray-800">{stats.totalRentals}</h3>
                         <p className="text-gray-500">Total Rentals</p>
                     </div>
                     <BsPeopleFill className="text-4xl text-pink-500" />
@@ -24,7 +52,7 @@ function Home() {
 
                 <li className="bg-white shadow-md p-6 rounded-lg flex items-center justify-between transform hover:scale-105 hover:shadow-md transition">
                     <div>
-                        <h3 className="text-2xl font-semibold text-gray-800">Rs.2543</h3>
+                        <h3 className="text-2xl font-semibold text-gray-800">{stats.totalSales}</h3>
                         <p className="text-gray-500">Total Sales</p>
                     </div>
                     <BsCurrencyExchange className="text-4xl text-green-500" />

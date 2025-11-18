@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SignUpService from "../../services/SignUpService";
+import { toast } from "react-toastify";
 
 function SignUp({ onClose }) {
   const [fullname, setfullname] = useState("");
@@ -14,30 +14,44 @@ function SignUp({ onClose }) {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       seterror("Passwords do not match.");
       return;
     }
+
     try {
-      await SignUpService(
-        fullname,
-        email,
-        phonenumber,
-        password,
-        confirmPassword,
-        navigate
-      );
+      const response = await fetch("http://localhost:3000/api/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullname,
+          email,
+          phonenumber,
+          password,
+          confirmPassword,
+          role: "user", // auto assign role
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Registration successful!");
+        navigate("/login"); // redirect after success
+      } else {
+        seterror(data.message || "Signup failed");
+      }
     } catch (err) {
-      seterror("Failed to Signup: " + err.message);
+      seterror("Server error: " + err.message);
+      console.error(err);
     }
   };
 
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
+      if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -45,9 +59,7 @@ function SignUp({ onClose }) {
 
   // Close on outside click
   const handleBackdropClick = (e) => {
-    if (e.target.id === "signup-backdrop") {
-      onClose();
-    }
+    if (e.target.id === "signup-backdrop") onClose();
   };
 
   return (
@@ -74,41 +86,11 @@ function SignUp({ onClose }) {
         )}
 
         <form className="space-y-5" onSubmit={handleSignUp}>
-          <InputField
-            id="full-name"
-            label="Full Name"
-            type="text"
-            value={fullname}
-            setValue={setfullname}
-          />
-          <InputField
-            id="email"
-            label="Email"
-            type="email"
-            value={email}
-            setValue={setemail}
-          />
-          <InputField
-            id="phone-number"
-            label="Phone Number"
-            type="tel"
-            value={phonenumber}
-            setValue={setphonenumber}
-          />
-          <InputField
-            id="password"
-            label="Password"
-            type="password"
-            value={password}
-            setValue={setpassword}
-          />
-          <InputField
-            id="confirm-password"
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            setValue={setconfirmPassword}
-          />
+          <InputField id="full-name" label="Full Name" type="text" value={fullname} setValue={setfullname} />
+          <InputField id="email" label="Email" type="email" value={email} setValue={setemail} />
+          <InputField id="phone-number" label="Phone Number" type="tel" value={phonenumber} setValue={setphonenumber} />
+          <InputField id="password" label="Password" type="password" value={password} setValue={setpassword} />
+          <InputField id="confirm-password" label="Confirm Password" type="password" value={confirmPassword} setValue={setconfirmPassword} />
 
           <button
             type="submit"
@@ -122,7 +104,7 @@ function SignUp({ onClose }) {
   );
 }
 
-// Input field component to reduce repetition
+// Input field component
 function InputField({ id, label, type, value, setValue }) {
   return (
     <div className="relative w-full">
@@ -134,7 +116,7 @@ function InputField({ id, label, type, value, setValue }) {
         className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-0"
         placeholder=" "
         required
-        minLength={type === "password" ? "6" : undefined}
+        minLength={type === "password" ? 6 : undefined}
       />
       <label
         htmlFor={id}

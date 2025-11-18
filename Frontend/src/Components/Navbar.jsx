@@ -31,7 +31,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
   };
 
   return (
-    <nav className="bg-white border-gray-200 py-2.5 shadow-md">
+    <nav className="bg-white border-gray-200 py-2.5 shadow-md sticky top-0 z-50">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
         <NavLink to="/" className="flex items-center">
           <img
