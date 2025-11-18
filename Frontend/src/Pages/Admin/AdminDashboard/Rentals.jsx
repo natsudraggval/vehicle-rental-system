@@ -69,7 +69,10 @@ function Rentals() {
             });
 
             if (res.ok) {
-                fetchBookings();
+                const updatedBooking = await res.json();
+                setBookings((prev) =>
+                    prev.map((b) => (b._id === id ? updatedBooking.booking : b))
+                );
             }
         } catch (err) {
             console.error("Return update error:", err);
@@ -115,6 +118,7 @@ function Rentals() {
                                 <th className="py-3 px-4 text-left">Requested By</th>
                                 <th className="py-3 px-4 text-left">Requested Date</th>
                                 <th className="py-3 px-4 text-left">Status</th>
+                                <th className="py-3 px-4 text-left">Fine</th>
                                 <th className="py-3 px-4 text-left">Actions</th>
                             </tr>
                         </thead>
@@ -172,6 +176,8 @@ function Rentals() {
                                                 {b.status}
                                             </span>
                                         </td>
+
+                                        <td className="py-3 px-4">Rs.{b.fine}</td>
 
                                         <td className="py-3 px-4 space-x-2">
                                             {b.status === "approved" || b.status === "returned" ? (

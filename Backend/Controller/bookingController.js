@@ -213,7 +213,7 @@ export const markReturned = async (req, res) => {
   }
 };
 
-// Stats updater
+// Stats updater - admin
 export const getBookingStats = async (req, res) => {
   try {
     const totalBooking = await Booking.countDocuments(); // total bookings
