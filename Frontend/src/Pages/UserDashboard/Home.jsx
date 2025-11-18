@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BiSolidBellRing } from "react-icons/bi";
 import DetailsImg from '../../assets/image/details.png'
 import PopularVehicles from './PopularVehicles';
 
 function Home() {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const response = await fetch("http://localhost:3000/api/users/profile", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch user data");
+                const data = await response.json();
+                setUser(data.user);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchUser();
+    }, []);
+
+
+    if (loading) return <p>Loading profile...</p>;
+    if (!user) return <p>User not found</p>;
+
     return (
         <div>
             <div
@@ -53,7 +82,7 @@ function Home() {
                                 Full Name
                             </p>
                             <p className="text-lg font-semibold text-gray-900 mt-1">
-                                Natsu Dragg
+                                {user.fullname}
                             </p>
                         </div>
 
@@ -62,7 +91,7 @@ function Home() {
                                 Email Address
                             </p>
                             <p className="text-lg font-semibold text-gray-900 mt-1">
-                                natsudragg@email.com
+                                {user.email}
                             </p>
                         </div>
 
@@ -71,22 +100,13 @@ function Home() {
                                 Phone Number
                             </p>
                             <p className="text-lg font-semibold text-gray-900 mt-1">
-                                +977-9800000000
+                                {user.phonenumber ? user.phonenumber : '+977-XXXXXXXX'}
                             </p>
                         </div>
 
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase tracking-wide">
-                                Address
-                            </p>
-                            <p className="text-lg font-semibold text-gray-900 mt-1">
-                                Kathmandu, Nepal
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
-
 
             <footer
                 className="bg-white p-4 text-center text-sm text-gray-400 rounded-lg shadow-md border-t border-gray-200 mt-6"

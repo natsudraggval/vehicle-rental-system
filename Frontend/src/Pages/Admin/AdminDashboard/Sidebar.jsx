@@ -13,9 +13,9 @@ function Sidebar() {
             title: "Do you really want to logout?",
             icon: "info",
             showCancelButton: true,
-            confirmButtonText: "Yes",
+            confirmButtonText: "Logout",
             cancelButtonText: "Cancel",
-            confirmButtonColor: "#059669",
+            confirmButtonColor: "#06b6d4",
             cancelButtonColor: "#e11d48",
         }).then((result) => {
             if (result.isConfirmed) {

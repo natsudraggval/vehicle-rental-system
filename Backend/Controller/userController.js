@@ -182,7 +182,9 @@ const UpdateProfileController = async (req, res) => {
     // UpdateProfileController / LogoutController — use Authorization header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Authorization token missing or invalid" });
+      return res
+        .status(401)
+        .json({ message: "Authorization token missing or invalid" });
     }
     const splitToken = authHeader.split(" ")[1];
     const decoded = jsonwebtoken.verify(splitToken, process.env.SECURE);
@@ -215,7 +217,9 @@ const LogoutController = async (req, res) => {
     // UpdateProfileController / LogoutController — use Authorization header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Authorization token missing or invalid" });
+      return res
+        .status(401)
+        .json({ message: "Authorization token missing or invalid" });
     }
     const splitToken = authHeader.split(" ")[1];
     const decoded = jsonwebtoken.verify(splitToken, process.env.SECURE);
@@ -241,6 +245,25 @@ const GetAllUserController = async (req, res) => {
   }
 };
 
+const GetProfileController = async (req, res) => {
+  try {
+    const userId = req.user.id; // verifyToken sets req.user
+    const user = await UserModel.findById(userId);
+
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+
+    res
+      .status(200)
+      .json({ success: true, user, message: "User fetched successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 export {
   LoginController,
   SignupController,
@@ -248,5 +271,6 @@ export {
   UpdateProfileController,
   LogoutController,
   GetAllUserController,
+  GetProfileController,
   GoogleLoginController,
 };
