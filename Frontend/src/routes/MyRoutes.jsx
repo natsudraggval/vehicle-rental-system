@@ -27,6 +27,8 @@ import UpdatePassword from "../Pages/UserDashboard/UpdatePassword";
 import VehicleRentalPage from "../Pages/VehicleRentalPage";
 import Features from "../Components/Features";
 
+import PaymentSuccess from "../Pages/PaymentSuccess";
+
 function MyRoutes() {
   return (
     <>
@@ -74,6 +76,8 @@ function MyRoutes() {
 
         {/* single vehicle page */}
         <Route path="/vehicle/:id" element={<VehicleRentalPage />} />
+
+        <Route path="/payment-success" element={<PaymentSuccess />} />
 
         {/* Redirects any unknown route */}
         <Route path="*" element={<Navigate to="/" />} />

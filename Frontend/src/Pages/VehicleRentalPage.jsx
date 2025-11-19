@@ -103,38 +103,44 @@ function VehicleRentalPage() {
         e.preventDefault();
         if (!vehicle) return;
 
+        // Store booking form data until payment succeeds
+        const bookingData = {
+            vehicleId: vehicle._id,
+            startDate,
+            endDate,
+            fullname: fullName,
+            email,
+        };
+        localStorage.setItem("pendingBooking", JSON.stringify(bookingData));
+
         try {
-            const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3000/api/booking", {
+            const res = await fetch("http://localhost:3000/api/payment/initiate", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    vehicleId: vehicle._id,
-                    startDate,
-                    endDate,
-                    fullname: fullName,
-                    email,
+                    amount: totalPrice,
+                    purchaseOrderId: "order_" + Date.now(),
+                    customer: {
+                        name: fullName,
+                        email,
+                        phone: "9800000000",
+                    },
                 }),
             });
 
             const data = await res.json();
 
-            if (!res.ok) {
-                toast.error(data.message || "Booking failed");
+            if (data.payment_url) {
+                window.location.href = data.payment_url;
             } else {
-                toast.success("Booking successful!");
-                setTimeout(() => {
-                    navigate("/browsevehicles");
-                }, 2000);
+                toast.error("Failed to initialize payment");
             }
         } catch (err) {
-            toast.error("Server error. Please try again.");
             console.error(err);
+            toast.error("Payment error");
         }
     };
+
 
     if (loading) return <img src="/spinner.svg" alt="Loading" className="h-15 w-15" />;
     if (error) return <div className="text-red-500">{error}</div>;

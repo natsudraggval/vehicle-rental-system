@@ -5,6 +5,7 @@ import Connect from "./config/db.js";
 import userRoute from "./Routes/userRoute.js";
 import vehicleRoute from "./Routes/vehicleRoute.js";
 import bookingRoute from "./Routes/bookingRoute.js";
+import paymentRoutes from "./Routes/paymentRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,7 @@ app.use(
 app.use("/api/users", userRoute);
 app.use("/api/vehicles", vehicleRoute);
 app.use("/api/booking", bookingRoute);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello! The server is working.");
