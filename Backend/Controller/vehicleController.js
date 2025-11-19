@@ -1,5 +1,6 @@
 import fs from "fs";
 import Vehicle from "../Models/vehicleModel.js";
+import Booking from "../Models/bookingModel.js";
 
 const addProduct = async (req, res) => {
   try {
@@ -250,6 +251,43 @@ const updateVehicleAvailability = async (req, res) => {
   }
 };
 
+// Get top 5 popular vehicles
+const getPopularVehicles = async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+
+    const vehicleCount = {};
+
+    for (const booking of bookings) {
+      const vehicleId = booking.vehicleId.toString();
+
+      // Fetch vehicle info from DB
+      const vehicle = await Vehicle.findById(vehicleId);
+      if (!vehicle) continue;
+
+      if (vehicleCount[vehicleId]) {
+        vehicleCount[vehicleId].count += 1;
+      } else {
+        vehicleCount[vehicleId] = {
+          count: 1,
+          vehicleName: vehicle.name,
+          vehicleNumber: vehicle.vehicleNumber,
+          image: vehicle.imageUrl, // <--- use correct field name
+          price: vehicle.price,
+        };
+      }
+    }
+
+    const popularVehicles = Object.values(vehicleCount)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 4);
+
+    res.status(200).json(popularVehicles);
+  } catch (error) {
+    res.status(500).json({ message: error.message, success: false });
+  }
+};
+
 export {
   addProduct,
   updateProductDetails,
@@ -265,4 +303,5 @@ export {
   updateVehicle,
   deleteVehicle,
   updateVehicleAvailability,
+  getPopularVehicles,
 };
