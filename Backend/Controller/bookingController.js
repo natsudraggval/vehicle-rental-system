@@ -14,6 +14,8 @@ export const createBooking = async (req, res) => {
       email,
       paymentMethod,
       paymentDetails,
+      paymentId,
+      paymentStatus,
     } = req.body;
     const userId = req.user?._id || null; // make sure auth middleware sets req.user
 
@@ -60,6 +62,8 @@ export const createBooking = async (req, res) => {
         startDate: s,
         endDate: e,
         totalPrice,
+        paymentId: paymentId || null, // add this
+        paymentStatus: paymentStatus || "pending", // add this
         paymentMethod: paymentMethod || "khalti",
         paymentDetails: paymentDetails || {},
       });
