@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BiSolidBellRing } from "react-icons/bi";
 import DetailsImg from '../../assets/image/details.png'
 import PopularVehicles from './PopularVehicles';
+import Typewriter from '../../Components/TypeWriter';
 
 function Home() {
     const [user, setUser] = useState(null);
@@ -76,7 +77,7 @@ function Home() {
                             <div className="flex items-center space-x-3">
                                 <BiSolidBellRing className="text-2xl text-amber-500" />
                                 <span className="font-medium">
-                                    {note.message}
+                                    <Typewriter text={note.message} speed={50} intervalTime={10000} />
                                 </span>
                             </div>
                         </div>

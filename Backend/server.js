@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
   res.send("Hello! The server is working.");
 });
 
-cron.schedule("* * * * *", dailyRentalCheck); // Runs every minute for demonstration but keep 0 0 * * * for daily execution at midnight
+cron.schedule("0 0 * * *", dailyRentalCheck); // Runs every minute for demonstration but keep 0 0 * * * for daily execution at midnight
 
 app.listen(port, () => {
   console.log(`listening on Port ${port}`);
