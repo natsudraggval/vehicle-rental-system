@@ -64,14 +64,14 @@ function Navbar({ onLoginClick, onSignupClick }) {
           {!email ? (
             <button
               onClick={onLoginClick}
-              className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700"
+              className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700 cursor-pointer"
             >
               <span className="hidden md:inline">Login</span>
             </button>
           ) : (
             <button
               onClick={handleLogout}
-              className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700"
+              className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700 cursor-pointer"
             >
               {/* <FaUser /> */}
               <span className="hidden md:inline">Logout</span>

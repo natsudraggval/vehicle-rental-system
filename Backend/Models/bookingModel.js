@@ -48,6 +48,8 @@ const bookingSchema = new mongoose.Schema(
     paymentId: { type: String, default: null }, // Khalti pidx
     paymentMethod: { type: String, default: "khalti" },
     paymentDetails: { type: Object, default: {} }, // optional
+
+    notifiedEnding: { type: Boolean, default: false },
   },
 
   { timestamps: true }

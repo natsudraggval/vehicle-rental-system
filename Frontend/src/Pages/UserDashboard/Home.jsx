@@ -7,6 +7,8 @@ function Home() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const [notifications, setNotifications] = useState([]);
+
     useEffect(() => {
         async function fetchUser() {
             try {
@@ -30,6 +32,23 @@ function Home() {
     }, []);
 
 
+    useEffect(() => {
+        async function fetchNotifications() {
+            try {
+                const res = await fetch(`http://localhost:3000/api/notifications/${user._id}`);
+                const data = await res.json();
+                setNotifications(data);
+            } catch (err) {
+                console.error("Error fetching notifications:", err);
+            }
+        }
+
+        if (user) {
+            fetchNotifications();
+        }
+    }, [user]);
+
+
     if (loading) return <p>Loading profile...</p>;
     if (!user) return <p>User not found</p>;
 
@@ -47,16 +66,23 @@ function Home() {
             </div>
 
 
-            <div
-                className="bg-amber-100 border border-amber-200 text-amber-700 px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition mb-6"
-            >
-                <div className="flex items-center space-x-3">
-                    <BiSolidBellRing className="text-2xl text-amber-500" />
-                    <span className="font-medium">
-                        Reminder: Your <strong>Honda Dio</strong> rental ends in 1 day!
-                    </span>
+            {notifications.length > 0 && (
+                <div className="mb-6">
+                    {notifications.map((note) => (
+                        <div
+                            key={note._id}
+                            className="bg-amber-100 border border-amber-200 text-amber-700 px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition mb-4"
+                        >
+                            <div className="flex items-center space-x-3">
+                                <BiSolidBellRing className="text-2xl text-amber-500" />
+                                <span className="font-medium">
+                                    {note.message}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </div>
+            )}
 
             <PopularVehicles />
 

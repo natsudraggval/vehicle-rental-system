@@ -7,6 +7,10 @@ import vehicleRoute from "./Routes/vehicleRoute.js";
 import bookingRoute from "./Routes/bookingRoute.js";
 import paymentRoutes from "./Routes/paymentRoutes.js";
 
+import cron from "node-cron";
+import notificationRoutes from "./Routes/notificationRoute.js";
+import { dailyRentalCheck } from "./Controller/notificationController.js";
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,9 +36,13 @@ app.use("/api/vehicles", vehicleRoute);
 app.use("/api/booking", bookingRoute);
 app.use("/api/payment", paymentRoutes);
 
+app.use("/api/notifications", notificationRoutes);
+
 app.get("/", (req, res) => {
   res.send("Hello! The server is working.");
 });
+
+cron.schedule("* * * * *", dailyRentalCheck); // Runs every minute for demonstration but keep 0 0 * * * for daily execution at midnight
 
 app.listen(port, () => {
   console.log(`listening on Port ${port}`);
