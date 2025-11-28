@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 function ManageVehicles() {
     const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [search, setSearch] = useState("");
     const [formData, setFormData] = useState({
         name: '',
         vehicleNumber: '',
@@ -90,6 +91,13 @@ function ManageVehicles() {
             description: vehicle.description
         });
     };
+
+    // Search Filter 
+    const filteredVehicles = vehicles.filter((v) =>
+        v.name?.toLowerCase().includes(search.toLowerCase()) ||
+        v.vehicleNumber?.toLowerCase().includes(search.toLowerCase()) ||
+        v.category?.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div>
@@ -278,6 +286,8 @@ function ManageVehicles() {
                         <input
                             type="search"
                             placeholder="Search vehicles..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                             className="p-2 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition w-64 bg-gray-50"
                         />
 
@@ -299,14 +309,14 @@ function ManageVehicles() {
                             </tr>
                         </thead>
                         <tbody>
-                            {vehicles.length === 0 ? (
+                            {filteredVehicles.length === 0 ? (
                                 <tr>
                                     <td colSpan="7" className="py-4 text-center text-gray-500">
                                         No vehicles found
                                     </td>
                                 </tr>
                             ) : (
-                                vehicles.map((vehicle, index) => (
+                                filteredVehicles.map((vehicle, index) => (
                                     <tr key={vehicle._id} className="border-t border-gray-300 hover:bg-gray-50 transition">
                                         <td className="py-3 px-4">{index + 1}</td>
                                         <td className="py-3 px-4">

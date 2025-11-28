@@ -80,7 +80,7 @@ function Rentals() {
     };
 
 
-    // Search Filter Logic
+    // Search Filter 
     const filteredBookings = bookings.filter((b) =>
         b.vehicleName?.toLowerCase().includes(search.toLowerCase()) ||
         b.vehicleNumber?.toLowerCase().includes(search.toLowerCase()) ||
