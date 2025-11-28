@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// function to connect to the database -> try and catch methods are used to handle the errors
+// function to connect to the database
 const Connect = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URL , {

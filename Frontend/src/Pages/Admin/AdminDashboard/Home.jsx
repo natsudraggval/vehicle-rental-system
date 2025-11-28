@@ -11,13 +11,10 @@ function Home() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                // Replace with your actual API endpoint
                 const response = await fetch('http://localhost:3000/api/booking/stats');
                 if (!response.ok) throw new Error('Failed to fetch data');
 
                 const data = await response.json();
-                // Assuming your backend returns an object like:
-                // { totalBooking: 1020, totalRentals: 2834, totalSales: 2543 }
                 setStats({
                     totalBooking: data.totalBooking,
                     totalRentals: data.totalRentals,
@@ -32,6 +29,7 @@ function Home() {
     }, []);
     return (
         <div className="space-y-6">
+            
             {/* STAT CARDS */}
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <li className="bg-white shadow-lg p-6 rounded-lg flex items-center justify-between transform hover:scale-105 hover:shadow-lg transition">

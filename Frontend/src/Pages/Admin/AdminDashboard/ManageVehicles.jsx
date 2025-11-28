@@ -18,7 +18,7 @@ function ManageVehicles() {
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
 
-    // Fetch vehicles on component mount
+    // Fetches vehicles on component mount
     useEffect(() => {
         fetchVehicles();
     }, []);
@@ -101,6 +101,7 @@ function ManageVehicles() {
 
     return (
         <div>
+
             {/* ADD VEHICLES FORM */}
             <div
                 className="bg-white shadow-md p-6 rounded-lg hover:shadow-md transition"
@@ -271,8 +272,6 @@ function ManageVehicles() {
                     </div>
                 </form>
             </div>
-
-
 
             {/* Manage Vehicles Table  */}
             <div

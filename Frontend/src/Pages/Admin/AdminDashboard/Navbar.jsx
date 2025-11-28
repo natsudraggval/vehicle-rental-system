@@ -5,6 +5,7 @@ import profileImg from '../../../assets/image/profile.jpg';
 function Navbar() {
     return (
         <nav className="bg-white flex items-center justify-between p-4 shadow-lg sticky top-0 z-10">
+            
             {/* Left Section */}
             <div className="flex items-center space-x-4">
                 <HiOutlineMenu className="text-2xl text-gray-700 cursor-pointer" />

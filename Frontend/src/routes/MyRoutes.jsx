@@ -27,6 +27,7 @@ import UpdatePassword from "../Pages/UserDashboard/UpdatePassword";
 import VehicleRentalPage from "../Pages/VehicleRentalPage";
 import Features from "../Components/Features";
 
+// Payment imports
 import PaymentSuccess from "../Pages/PaymentSuccess";
 
 function MyRoutes() {
@@ -51,15 +52,14 @@ function MyRoutes() {
         </Route>
 
         {/* Nested Admin and its Dashboard routes */}
-        {/* remove standalone /admin/login route here (it's now a child) */}
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<DashboardLayout />}>
-            <Route index element={<DashboardHome />} /> {/* /admin */}
-            <Route path="home" element={<DashboardHome />} /> {/* /admin/home */}
-            <Route path="manage-vehicles" element={<ManageVehicles />} /> {/* /admin/manage-vehicles */}
-            <Route path="rentals" element={<Rentals />} /> {/* /admin/rentals */}
-            <Route path="rentals-history" element={<RentalsHistory />} /> {/* /admin/rentalshistory */}
-            <Route path="analytics" element={<Analytics />} /> {/* /admin/analytics */}
+            <Route index element={<DashboardHome />} /> 
+            <Route path="home" element={<DashboardHome />} /> 
+            <Route path="manage-vehicles" element={<ManageVehicles />} /> 
+            <Route path="rentals" element={<Rentals />} /> 
+            <Route path="rentals-history" element={<RentalsHistory />} /> 
+            <Route path="analytics" element={<Analytics />} /> 
           </Route>
         </Route>
 
@@ -77,6 +77,7 @@ function MyRoutes() {
         {/* single vehicle page */}
         <Route path="/vehicle/:id" element={<VehicleRentalPage />} />
 
+        {/* Payment Success Page */}
         <Route path="/payment-success" element={<PaymentSuccess />} />
 
         {/* Redirects any unknown route */}

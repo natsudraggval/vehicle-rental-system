@@ -3,7 +3,7 @@ import Vehicle from "../Models/vehicleModel.js";
 import VerifyToken from "../Middleware/verifyToken.js";
 import mongoose from "mongoose";
 
-// Create a booking and authentication middleware sets req.userId, it will be used as userId.
+// For booking and authentication middleware sets req.userId, it will be used as userId.
 export const createBooking = async (req, res) => {
   try {
     const {
@@ -17,7 +17,7 @@ export const createBooking = async (req, res) => {
       paymentId,
       paymentStatus,
     } = req.body;
-    const userId = req.user?._id || null; // make sure auth middleware sets req.user
+    const userId = req.user?._id || null; // auth middleware sets req.user (make sure)
 
     if (!vehicleId || !startDate || !endDate) {
       return res
@@ -62,8 +62,8 @@ export const createBooking = async (req, res) => {
         startDate: s,
         endDate: e,
         totalPrice,
-        paymentId: paymentId || null, // add this
-        paymentStatus: paymentStatus || "pending", // add this
+        paymentId: paymentId || null,
+        paymentStatus: paymentStatus || "pending",
         paymentMethod: paymentMethod || "khalti",
         paymentDetails: paymentDetails || {},
       });
@@ -177,7 +177,7 @@ export const updateBookingStatus = async (req, res) => {
   }
 };
 
-// Mark booking as returned. Calculates fine if returned late, Body: none (actualReturnDate will be set to now), Fine policy: fine = lateDays * vehicle.price  (adjust as needed)
+// For marking booking as returned and Calculates fine if returned late
 export const markReturned = async (req, res) => {
   try {
     const { id } = req.params;
@@ -193,7 +193,7 @@ export const markReturned = async (req, res) => {
     if (scheduledEnd && now > scheduledEnd && booking.vehicleId) {
       const diff = now - scheduledEnd;
       const lateDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      fine = lateDays * (booking.vehicleId.price || 0); // adjust policy if needed
+      fine = lateDays * (booking.vehicleId.price || 0); // for adjusting fine according to needs
     }
     booking.fine = fine;
 
@@ -217,7 +217,7 @@ export const markReturned = async (req, res) => {
   }
 };
 
-// Stats updater - admin
+// Stats updater - admin 
 export const getBookingStats = async (req, res) => {
   try {
     const totalBooking = await Booking.countDocuments(); // total bookings
@@ -226,7 +226,7 @@ export const getBookingStats = async (req, res) => {
     ]);
     const totalSales = totalSalesAgg[0]?.totalSales || 0;
 
-    // Optional: count distinct vehicles rented
+    // Count distinct vehicles rented
     const totalRentals = await Booking.distinct("vehicleId").then(
       (arr) => arr.length
     );
@@ -240,7 +240,7 @@ export const getBookingStats = async (req, res) => {
   }
 };
 
-// Add / update payment info for a booking, Body: { paymentId, paymentStatus: "pending"|"paid"|"failed", paymentMethod, paymentDetails }
+// Add / update payment info for a booking
 export const addPayment = async (req, res) => {
   try {
     const { id } = req.params;

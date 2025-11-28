@@ -13,7 +13,7 @@ function Login({ onClose = () => { } }) {
 
   const [loading, setLoading] = useState(false);
 
-  // ---------------- Local Login ----------------
+  // Local Login 
   const handlelogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -47,7 +47,7 @@ function Login({ onClose = () => { } }) {
     }
   };
 
-  // ---------------- Google oAuth Login ----------------
+  // Google oAuth Login 
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     try {
       setLoading(true);
@@ -87,7 +87,7 @@ function Login({ onClose = () => { } }) {
     setError("Google login failed. Please try again.");
   };
 
-  // ---------------- Modal Behavior ----------------
+  // Modal Behavior 
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {

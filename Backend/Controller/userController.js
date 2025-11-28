@@ -6,7 +6,7 @@ import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// ---------------- LOGIN ----------------
+// LOGIN 
 const LoginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -27,7 +27,7 @@ const LoginController = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    // save under the "jwt" field (schema expects jwt)
+    // saved under the "jwt" field
     await UserTokenModel.create({ userId: user._1d ?? user._id, jwt: token });
 
     res.status(200).json({
@@ -44,7 +44,7 @@ const LoginController = async (req, res) => {
   }
 };
 
-// ---------------- SIGNUP ----------------
+// SIGNUP 
 const SignupController = async (req, res) => {
   try {
     const { fullname, email, phonenumber, password, confirmPassword, role } =
@@ -72,7 +72,7 @@ const SignupController = async (req, res) => {
   }
 };
 
-// ---------------- GOOGLE LOGIN ----------------
+// GOOGLE LOGIN 
 const GoogleLoginController = async (req, res) => {
   try {
     const { id_token } = req.body;
@@ -132,7 +132,7 @@ const GoogleLoginController = async (req, res) => {
   }
 };
 
-// ---------------- OTHER CONTROLLERS ----------------
+// OTHER CONTROLLERS 
 const UpdatePasswordController = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -179,7 +179,7 @@ const UpdatePasswordController = async (req, res) => {
 
 const UpdateProfileController = async (req, res) => {
   try {
-    // UpdateProfileController / LogoutController — use Authorization header
+    // UpdateProfileController / LogoutController — Authorization header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res
@@ -214,7 +214,7 @@ const UpdateProfileController = async (req, res) => {
 
 const LogoutController = async (req, res) => {
   try {
-    // UpdateProfileController / LogoutController — use Authorization header
+    // UpdateProfileController / LogoutController — Authorization header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res

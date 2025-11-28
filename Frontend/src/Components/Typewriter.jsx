@@ -6,7 +6,7 @@ const Typewriter = ({ text = "", speed = 50, intervalTime = 10000 }) => {
     useEffect(() => {
         let timeout;
 
-        // Freeze the text at the start of this effect
+        // Freezes the text at the start of this effect
         const fixedText = text;
 
         const typeText = () => {

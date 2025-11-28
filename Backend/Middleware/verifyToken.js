@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.SECURE);
 
-    // Fetch the full user from DB
+    // Fetch the full user from daatabse
     const user = await UserModel.findById(decoded.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 

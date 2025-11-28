@@ -6,7 +6,6 @@ function Rentals() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
 
-
     // Fetch All Bookings
     const fetchBookings = async () => {
         try {

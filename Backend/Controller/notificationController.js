@@ -31,7 +31,7 @@ export const dailyRentalCheck = async () => {
     // Remove notifications for already expired rentals
     if (diff < 0) {
       await Notification.deleteMany({
-        bookingId: b._id, // <-- use bookingId instead of regex
+        bookingId: b._id, // used bookingId instead of regex because it is more reliable
       });
     }
   }

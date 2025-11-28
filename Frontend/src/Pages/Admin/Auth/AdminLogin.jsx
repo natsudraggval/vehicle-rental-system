@@ -57,7 +57,7 @@ function AdminLogin() {
   };
 
   return (
-    // This is the card that will be centered by the overlay in App.jsx
+    
     <div className="relative flex w-96 flex-col space-y-5 rounded-lg border border-gray-200 bg-white px-5 py-10 shadow-xl">
       <button
         className="absolute right-3 top-3 text-gray-500 hover:text-gray-800 text-3xl font-extrabold focus:outline-none"

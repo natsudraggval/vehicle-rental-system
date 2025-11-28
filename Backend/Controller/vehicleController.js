@@ -261,7 +261,7 @@ const getPopularVehicles = async (req, res) => {
     for (const booking of bookings) {
       const vehicleId = booking.vehicleId.toString();
 
-      // Fetch vehicle info from DB
+      // Fetch vehicle info from database
       const vehicle = await Vehicle.findById(vehicleId);
       if (!vehicle) continue;
 
@@ -272,7 +272,7 @@ const getPopularVehicles = async (req, res) => {
           count: 1,
           vehicleName: vehicle.name,
           vehicleNumber: vehicle.vehicleNumber,
-          image: vehicle.imageUrl, // <--- use correct field name
+          image: vehicle.imageUrl, 
           price: vehicle.price,
         };
       }

@@ -31,7 +31,7 @@ function PaymentSuccess() {
             const data = await res.json();
 
             if (data.status === "Completed") {
-                // payment success → now create booking
+                // payment success then create booking
                 const token = localStorage.getItem("token");
 
                 const create = await fetch("http://localhost:3000/api/booking", {
