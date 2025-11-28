@@ -6,6 +6,7 @@ import userRoute from "./Routes/userRoute.js";
 import vehicleRoute from "./Routes/vehicleRoute.js";
 import bookingRoute from "./Routes/bookingRoute.js";
 import paymentRoutes from "./Routes/paymentRoutes.js";
+import analyticsRoutes from "./Routes/analyticsRoutes.js";
 
 import cron from "node-cron";
 import notificationRoutes from "./Routes/notificationRoute.js";
@@ -35,6 +36,7 @@ app.use("/api/users", userRoute);
 app.use("/api/vehicles", vehicleRoute);
 app.use("/api/booking", bookingRoute);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 app.use("/api/notifications", notificationRoutes);
 
