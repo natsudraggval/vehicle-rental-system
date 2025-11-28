@@ -20,11 +20,19 @@ export const dailyRentalCheck = async () => {
     if (diff === 1 && !b.notifiedEnding) {
       await Notification.create({
         userId: b.userId,
+        bookingId: b._id,
         message: `Your ${b.vehicleName} rental ends tomorrow!`,
       });
 
       b.notifiedEnding = true;
       await b.save();
+    }
+
+    // Remove notifications for already expired rentals
+    if (diff < 0) {
+      await Notification.deleteMany({
+        bookingId: b._id, // <-- use bookingId instead of regex
+      });
     }
   }
 };
