@@ -13,13 +13,15 @@ function Login({ onClose = () => { } }) {
 
   const [loading, setLoading] = useState(false);
 
+  const backendURL = import.meta.env.VITE_API_URL;
+
   // Local Login 
   const handlelogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/login",
+        `${backendURL}/api/users/login`,
         { email, password }
       );
 
@@ -54,7 +56,7 @@ function Login({ onClose = () => { } }) {
       const idToken = credentialResponse.credential;
 
       const response = await axios.post(
-        "http://localhost:3000/api/users/google-login",
+        `${backendURL}/api/users/google-login`,
         { id_token: idToken }
       );
 

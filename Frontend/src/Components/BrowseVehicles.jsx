@@ -8,10 +8,12 @@ function BrowseVehicles() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const navigate = useNavigate();
 
+  const backendURL = import.meta.env.VITE_API_URL;
+
   const { isPending, error, data } = useQuery({
     queryKey: ["browsevehicles"],
     queryFn: () =>
-      fetch("http://localhost:3000/api/vehicles/get-vehicles").then((res) =>
+      fetch(`${backendURL}/api/vehicles/get-vehicles`).then((res) =>
         res.json()
       ),
   });

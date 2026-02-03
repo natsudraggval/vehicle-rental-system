@@ -6,12 +6,14 @@ function Rentals() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     // Fetch All Bookings
     const fetchBookings = async () => {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/api/booking", {
+            const res = await fetch(`${backendURL}/api/booking`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -36,7 +38,7 @@ function Rentals() {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3000/api/booking/${id}/status`, {
+            const res = await fetch(`${backendURL}/api/booking/${id}/status`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +61,7 @@ function Rentals() {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3000/api/booking/${id}/return`, {
+            const res = await fetch(`${backendURL}/api/booking/${id}/return`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

@@ -9,11 +9,13 @@ function Home() {
     });
     const [recent, setRecent] = useState([]);
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/booking/stats');
+                const response = await fetch(`${backendURL}/api/booking/stats`);
                 if (!response.ok) throw new Error('Failed to fetch data');
 
                 const data = await response.json();
@@ -29,7 +31,7 @@ function Home() {
 
         const fetchRecentRentals = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/booking/recent");
+                const res = await fetch(`${backendURL}/api/booking/recent`);
                 const data = await res.json();
                 setRecent(data);
             } catch (err) {

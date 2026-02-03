@@ -4,6 +4,8 @@ function RentalsHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const backendURL = import.meta.env.VITE_API_URL;
+
   // Fetch all bookings for the logged-in user
   const fetchHistory = async () => {
     try {
@@ -11,7 +13,7 @@ function RentalsHistory() {
       const userId = localStorage.getItem("id");
 
       const res = await fetch(
-        `http://localhost:3000/api/booking`,
+        `${backendURL}/api/booking`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

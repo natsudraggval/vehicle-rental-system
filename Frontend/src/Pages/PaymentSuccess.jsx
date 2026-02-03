@@ -7,6 +7,8 @@ function PaymentSuccess() {
     const navigate = useNavigate();
     const hasRun = useRef(false);
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         if (hasRun.current) return;  // block second run
         hasRun.current = true;
@@ -22,7 +24,7 @@ function PaymentSuccess() {
         }
 
         const verifyPayment = async () => {
-            const res = await fetch("http://localhost:3000/api/payment/verify", {
+            const res = await fetch(`${backendURL}/api/payment/verify`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ pidx }),
@@ -34,7 +36,7 @@ function PaymentSuccess() {
                 // payment success then create booking
                 const token = localStorage.getItem("token");
 
-                const create = await fetch("http://localhost:3000/api/booking", {
+                const create = await fetch(`${backendURL}/api/booking`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

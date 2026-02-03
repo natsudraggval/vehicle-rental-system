@@ -19,6 +19,8 @@ function VehicleRentalPage() {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const userJson = localStorage.getItem("user");
         const token = localStorage.getItem("token");
@@ -89,7 +91,7 @@ function VehicleRentalPage() {
     useEffect(() => {
         if (!id) return;
         setLoading(true);
-        fetch(`http://localhost:3000/api/vehicles/vehicles/${id}`)
+        fetch(`${backendURL}/api/vehicles/vehicles/${id}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to fetch vehicle");
                 return res.json();
@@ -114,7 +116,7 @@ function VehicleRentalPage() {
         localStorage.setItem("pendingBooking", JSON.stringify(bookingData));
 
         try {
-            const res = await fetch("http://localhost:3000/api/payment/initiate", {
+            const res = await fetch(`${backendURL}/api/payment/initiate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -12,6 +12,8 @@ function SignUp({ onClose }) {
 
   const navigate = useNavigate();
 
+  const backendURL = import.meta.env.VITE_API_URL;
+
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -21,7 +23,7 @@ function SignUp({ onClose }) {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/users/signup", {
+      const response = await fetch(`${backendURL}/api/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

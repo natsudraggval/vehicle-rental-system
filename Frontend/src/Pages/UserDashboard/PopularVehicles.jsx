@@ -5,10 +5,12 @@ function PopularVehicles() {
     const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const fetchPopularVehicles = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/api/vehicles/popular-vehicles");
+                const res = await axios.get(`${backendURL}/api/vehicles/popular-vehicles`);
                 setVehicles(res.data);
             } catch (error) {
                 console.error("Error fetching popular vehicles:", error);

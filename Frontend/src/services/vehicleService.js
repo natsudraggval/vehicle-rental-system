@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api/vehicles"; // Changed port to 5000
+const backendURL = import.meta.env.VITE_API_URL;
+
+const BASE_URL = `${backendURL}/api/vehicles`;
 
 // Get token from localStorage
 const getAuthHeader = () => {
@@ -24,7 +26,7 @@ export const vehicleService = {
     const response = await axios.post(
       `${BASE_URL}/create-vehicles`,
       vehicleData,
-      getAuthHeader()
+      getAuthHeader(),
     );
     return response.data;
   },
@@ -40,7 +42,7 @@ export const vehicleService = {
     const response = await axios.put(
       `${BASE_URL}/vehicles/${id}`,
       vehicleData,
-      getAuthHeader()
+      getAuthHeader(),
     );
     return response.data;
   },
@@ -49,7 +51,7 @@ export const vehicleService = {
   deleteVehicle: async (id) => {
     const response = await axios.delete(
       `${BASE_URL}/vehicles/${id}`,
-      getAuthHeader()
+      getAuthHeader(),
     );
     return response.data;
   },
@@ -59,7 +61,7 @@ export const vehicleService = {
     const response = await axios.patch(
       `${BASE_URL}/vehicles/${id}/availability`,
       { isAvailable },
-      getAuthHeader()
+      getAuthHeader(),
     );
     return response.data;
   },

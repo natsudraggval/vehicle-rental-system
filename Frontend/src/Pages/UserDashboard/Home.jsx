@@ -10,10 +10,12 @@ function Home() {
 
     const [notifications, setNotifications] = useState([]);
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await fetch("http://localhost:3000/api/users/profile", {
+                const response = await fetch(`${backendURL}/api/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
@@ -36,7 +38,7 @@ function Home() {
     useEffect(() => {
         async function fetchNotifications() {
             try {
-                const res = await fetch(`http://localhost:3000/api/notifications/${user._id}`);
+                const res = await fetch(`${backendURL}/api/notifications/${user._id}`);
                 const data = await res.json();
                 setNotifications(data);
             } catch (err) {

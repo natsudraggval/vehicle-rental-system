@@ -15,10 +15,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 const Analytics = () => {
     const [counts, setCounts] = useState({ scooter: 0, bike: 0, car: 0 });
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const fetchAnalytics = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/analytics/vehicle-type");
+                const res = await fetch(`${backendURL}/api/analytics/vehicle-type`);
                 const data = await res.json();
                 setCounts(data);
             } catch (err) {

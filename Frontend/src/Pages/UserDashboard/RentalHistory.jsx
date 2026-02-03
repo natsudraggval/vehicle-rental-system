@@ -4,6 +4,8 @@ function RentalHistory() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const backendURL = import.meta.env.VITE_API_URL;
+
     // Status Mapping
     const getDisplayStatus = (status) => {
         switch (status) {
@@ -30,7 +32,7 @@ function RentalHistory() {
             }
 
             const res = await fetch(
-                `http://localhost:3000/api/booking/user/${userId}`,
+                `${backendURL}/api/booking/user/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

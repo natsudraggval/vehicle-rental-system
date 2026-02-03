@@ -10,6 +10,8 @@ function AdminLogin() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const backendURL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
@@ -25,7 +27,7 @@ function AdminLogin() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:3000/api/users/login', {
+      const res = await axios.post(`${backendURL}/api/users/login`, {
         email,
         password,
       });
@@ -57,7 +59,7 @@ function AdminLogin() {
   };
 
   return (
-    
+
     <div className="relative flex w-96 flex-col space-y-5 rounded-lg border border-gray-200 bg-white px-5 py-10 shadow-xl">
       <button
         className="absolute right-3 top-3 text-gray-500 hover:text-gray-800 text-3xl font-extrabold focus:outline-none"
