@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BiSolidBellRing } from "react-icons/bi";
 import DetailsImg from '../../assets/image/details.png'
 import PopularVehicles from './PopularVehicles';
-import Typewriter from '../../Components/TypeWriter';
+import Typewriter from '../../Components/Typewriter';
 
 function Home() {
     const [user, setUser] = useState(null);
