@@ -10,8 +10,8 @@ router.post("/initiate", async (req, res) => {
     const { amount, purchaseOrderId, customer } = req.body;
 
     const payload = {
-      return_url: "http://localhost:5173/payment-success",
-      website_url: "http://localhost:5173",
+      return_url: "https://vehicle-rental-system-six-roan.vercel.app/payment-success",
+      website_url: "https://vehicle-rental-system-six-roan.vercel.app",
       amount: amount * 100, // convert to paisa
       purchase_order_id: purchaseOrderId,
       purchase_order_name: "Vehicle Booking",
