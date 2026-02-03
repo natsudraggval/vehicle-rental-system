@@ -6,7 +6,7 @@ import Login from '../Pages/Auth/Login';
 import SignUp from '../Pages/Auth/SignUp';
 import Auth from '../Pages/Auth/Auth';
 import BrowseVehicles from "../Components/BrowseVehicles";
-import AboutUs from "../Pages/Aboutus";
+import AboutUs from "../Pages/AboutUs";
 import { ToastContainer } from "react-toastify";
 
 // Admin Dashboard imports
