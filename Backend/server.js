@@ -22,14 +22,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Allow your Vite dev server to call the API
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://vehicle-rental-system-six-roan.vercel.app",
+];
 app.use(
   cors({
     origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: false,
-  })
+  }),
 );
 
 app.use("/api/users", userRoute);
