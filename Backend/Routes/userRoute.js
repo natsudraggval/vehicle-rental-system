@@ -1,7 +1,7 @@
 import { SignupController, LoginController, LogoutController, GetAllUserController, GoogleLoginController, GetProfileController } from '../Controller/userController.js'
 import express from 'express';
 import checkAdminModels from '../Middleware/adminAuth.js';
-import verifyToken from '../Middleware/verifytoken.js';
+import verifyToken from '../Middleware/verifyToken.js';
 const router = express.Router();
 
 router.post("/signup", SignupController);
