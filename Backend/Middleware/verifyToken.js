@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import UserModel from "../Models/UserModel.js";
+import UserModel from "../Models/userModel.js";
 
 const verifyToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
