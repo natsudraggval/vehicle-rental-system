@@ -1,7 +1,7 @@
 import UserModel from "../Models/userModel.js";
 import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
-import UserTokenModel from "../Models/UserTokenModel.js";
+import UserTokenModel from "../Models/usertokenModel.js";
 import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
