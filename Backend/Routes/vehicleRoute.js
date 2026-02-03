@@ -8,7 +8,7 @@ import {
   updateVehicleAvailability,
   getPopularVehicles,
 } from "../Controller/vehicleController.js";
-import verifyToken from "../Middleware/verifytoken.js";
+import verifyToken from "../Middleware/verifyToken.js";
 import checkAdminModels from "../Middleware/adminAuth.js";
 
 const router = express.Router();
