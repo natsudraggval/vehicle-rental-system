@@ -4,24 +4,36 @@ function Body() {
   return (
     <>
       {/* Background Image Section  */}
-      <div
-        className="bg-cover bg-center h-[640px] w-full"
-        style={{ backgroundImage: "url('/image/hero-image.jpg')" }}
-      >
-        <div className="flex flex-col items-start h-full px-6 md:px-20 md:ml-16 pt-28">
-          <h1 className="text-gray-900 text-6xl tracking-wide font-bold leading-tight mb-2">
-            Fast. Easy. <br />
+      <div className="flex flex-col md:flex-row h-[640px] w-full bg-gray-100 px-6 md:px-12">
+        {/* Text */}
+        <div className="flex flex-col justify-center flex-1 ml-0 md:ml-12 mt-10 md:-mt-32 text-center md:text-left">
+          <h1 className="text-gray-900 text-5xl md:text-7xl font-bold leading-tight mb-2">
+            Fast.
+            <br className="block md:hidden" />
+            <span className="md:ml-3">
+              Easy.
+            </span>
+            <br />
             Reliable Rides.
           </h1>
-          <div className="text-gray-700 text-lg font-light leading-snug">
+          <div className="text-gray-700 text-lg md:text-xl font-light">
             <p>A comprehensive vehicle rental platform designed for</p>
             <p>convenient access across Nepal.</p>
           </div>
         </div>
+
+        {/* Image */}
+        <div className="flex items-center justify-center md:justify-end flex-1 mt-6 md:mt-0">
+          <img
+            src="/image/hero-image.png"
+            alt="Hero"
+            className="h-[220px] md:h-[120%] w-auto object-contain"
+          />
+        </div>
       </div>
 
       {/* Stats */}
-      <div className="bg-gray-50 py-16 pt-32">
+      <div className="bg-gray-50 py-16 pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
