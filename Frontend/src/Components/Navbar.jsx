@@ -66,10 +66,11 @@ function Navbar({ onLoginClick, onSignupClick }) {
           {!email ? (
             <button
               onClick={onLoginClick}
-              className="ml-4 bg-cyan-500 text-white px-4 py-2 rounded-md text-md font-medium hover:bg-cyan-700 hidden sm:inline"
+              className="ml-4 bg-cyan-500 text-white px-4 py-1.5 rounded-md font-medium hover:bg-cyan-700 sm:inline lg:inline"
             >
-              <span className="hidden md:inline">Login</span>
+              Login
             </button>
+
           ) : (
             <button
               onClick={handleLogout}
@@ -83,7 +84,7 @@ function Navbar({ onLoginClick, onSignupClick }) {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
-            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <span className="sr-only">Open main menu</span>
             {!isMenuOpen ? (
@@ -185,14 +186,6 @@ function Navbar({ onLoginClick, onSignupClick }) {
                   >
                     Sign up
                   </span>
-                </li>
-                <li>
-                  <button
-                    onClick={() => { onLoginClick(); setIsMenuOpen(false); }}
-                    className="w-full text-left bg-cyan-500 text-white px-4 py-2 rounded-md mt-2 lg:hidden hover:bg-cyan-700"
-                  >
-                    Login
-                  </button>
                 </li>
               </>
             ) : (

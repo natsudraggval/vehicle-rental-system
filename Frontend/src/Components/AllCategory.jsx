@@ -13,9 +13,9 @@ function AllCategory() {
 
   return (
     <div className="w-full mb-5 bg-gray-50">
-        <div className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-8">
-              Categories
-        </div>
+      <div className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-8">
+        Categories
+      </div>
 
       {/* Loading State */}
       {isPending && (
@@ -38,7 +38,7 @@ function AllCategory() {
               <Link
                 to={`/product/${item.id}`}
                 key={item.id}
-                className="w-54 bg-white border border-gray-200 shadow-lg rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+                className="w-54 bg-white border border-gray-200 shadow-lg rounded-xl duration-500 hover:scale-105 hover:shadow-xl cursor-auto"
               >
                 <img
                   src={item.image}
