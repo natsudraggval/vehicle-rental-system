@@ -14,7 +14,7 @@ function BrowseVehicles() {
     queryKey: ["browsevehicles"],
     queryFn: () =>
       fetch(`${backendURL}/api/vehicles/get-vehicles`).then((res) =>
-        res.json()
+        res.json(),
       ),
   });
 
@@ -24,7 +24,7 @@ function BrowseVehicles() {
 
     if (Array.isArray(dest.category)) {
       return dest.category.some(
-        (cat) => cat.toLowerCase() === selectedCategory.toLowerCase()
+        (cat) => cat.toLowerCase() === selectedCategory.toLowerCase(),
       );
     }
 
@@ -35,7 +35,7 @@ function BrowseVehicles() {
     <div className="w-full mt-8 mb-8">
       <button
         type="submit"
-        className="w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-6 cursor-auto ml-26 font-os text-xl"
+        className="w-full max-w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-6 cursor-auto font-os text-xl ml-0 md:ml-26 md:mx-0 mx-auto"
       >
         Browse Vehicles By Category
       </button>
@@ -45,10 +45,11 @@ function BrowseVehicles() {
           <li key={category}>
             <button
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full font-medium shadow-sm transition-all duration-200 ${selectedCategory === category
-                ? "bg-cyan-600 text-white hover:bg-cyan-700"
-                : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white cursor-pointer"
-                }`}
+              className={`px-6 py-2 rounded-full font-medium shadow-sm transition-all duration-200 ${
+                selectedCategory === category
+                  ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                  : "border border-cyan-600 text-cyan-600 bg-white hover:bg-cyan-600 hover:text-white cursor-pointer"
+              }`}
             >
               {category}
             </button>
@@ -81,7 +82,6 @@ function BrowseVehicles() {
                 src={item.imageUrl}
                 alt={item.name}
                 className="h-64 w-64 object-cover rounded-t-xl"
-
               />
 
               <div className="px-4 py-3 w-64">
@@ -89,10 +89,7 @@ function BrowseVehicles() {
                   {item.category}
                 </span>
 
-                <p
-                  className="text-lg font-bold text-gray-900 truncate block capitalize"
-
-                >
+                <p className="text-lg font-bold text-gray-900 truncate block capitalize">
                   {item.name}
                 </p>
 
