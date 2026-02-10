@@ -35,7 +35,7 @@ function BrowseVehicles() {
     <div className="w-full mt-8 mb-8">
       <button
         type="submit"
-        className="w-full max-w-[1310px] bg-cyan-500 text-white py-2 rounded-md mb-6 cursor-auto font-os text-xl ml-0 md:ml-26 md:mx-0 mx-auto"
+        className="w-full max-w-[1310px] bg-cyan-500 text-white py-2 mb-6 cursor-auto font-os text-xl ml-0 md:ml-26 md:mx-0 mx-auto"
       >
         Browse Vehicles By Category
       </button>
